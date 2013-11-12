@@ -131,6 +131,7 @@ img.brown {border: 4px solid #704f00;}
 span.affiliation {color: #ff6600;}
 
 aside#sidebar {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, serif; 
   width: 200px;
   padding-left: 20px;
   min-height: 504px;
@@ -140,10 +141,31 @@ aside#sidebar {
   line-height: 1.3;
 }
 
-aside#sidebar p.repo-owner,
-aside#sidebar p.repo-owner a {
-  font-weight: bold;
+aside#sidebar p {
+  font-size: 1.15em;
+  line-height: 140%;
 }
+
+aside#sidebar img.logo {
+  width:150px;
+  margin-bottom: 1em;
+}
+aside#sidebar h4 {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, serif; 
+  font-size: 15px;
+  font-weight: bold;
+  color: #474747;
+} 
+aside#sidebar ul#social-links {
+  list-style: none;
+  margin-top: 0.5em;
+}
+aside#sidebar ul#social-links li {
+  list-style: none;
+  margin: 0 0 0.25em 0;
+  padding: 0;
+}
+
 
 #downloads {
   margin-bottom: 40px;
