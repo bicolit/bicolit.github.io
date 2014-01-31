@@ -331,6 +331,8 @@ form {
   color: #474747;
 } 
 
+img.right-buff {margin-right:1em;}
+
 p {
   margin-bottom: 20px;
 }
