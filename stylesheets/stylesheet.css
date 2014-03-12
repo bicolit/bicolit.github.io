@@ -330,7 +330,7 @@ form {
   font-size: .8em;
   color: #474747;
 } 
-
+span.topic {font-weight: bold; font-style: italic;}
 img.right-buff {margin-right:1em;}
 
 p {
