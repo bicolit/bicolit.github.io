@@ -331,7 +331,8 @@ form {
   color: #474747;
 } 
 span.topic {font-weight: bold; font-style: italic;}
-img.right-buff {margin-right:1em;}
+.right-buff {margin-right:1em;}
+.bottom-buff {margin-bottom:1em;}
 
 p {
   margin-bottom: 20px;
