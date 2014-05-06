@@ -24,6 +24,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/raffle.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
     <!--[if lt IE 9]>
@@ -73,6 +74,10 @@
             <div id="registration-wrap">
               <a href="http://www.eventbrite.com/e/bicol-it-techtalk-05-tickets-11490206517" class="register-btn" target="_blank">
                 Register Now!
+              </a>
+              &nbsp;
+              <a href="#" id="raffle-btn" class="register-btn">
+                Raffle
               </a>
             </div>
             <div>
@@ -225,5 +230,23 @@
         </aside>
       </div>
     </div>
+
+    <div id="raffle">
+      <a id="rc-9de52b1" class="rafl" href="http://www.rafflecopter.com/rafl/display/9de52b1/" rel="nofollow">a Rafflecopter giveaway</a>
+      <script src="//widget.rafflecopter.com/load.js"></script>
+    </div>
+
   </body>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/simplemodal/1.4.4/jquery.simplemodal.min.js"></script>
+  <script>
+    jQuery(function ($) {
+      $('#raffle-btn').click(function (e) {
+        $("#raffle").modal();
+        return false;
+      });
+    });
+  </script>
+
 </html>
