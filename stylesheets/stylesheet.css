@@ -136,12 +136,13 @@ span.affiliation {color: #ff6600;}
   margin-bottom: 2em;
 }
 a.register-btn {
-  padding:1em 1.5em;
+  padding:.3em 1em;
   background-color: #79b819;
   border-radius: 3px;
   color: white;
   font-size: 1.25em;
   font-weight: bold;
+  height: 10px;
 }
 
 aside#sidebar {
