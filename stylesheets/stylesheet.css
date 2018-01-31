@@ -15,35 +15,35 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* LAYOUT STYLES */
@@ -118,18 +118,37 @@ header h2 {
   float:left;
   margin-right: 20px;
 }
-#speaker-list .avatar img {
-  height: 80px;
-  width: 80px;
-  border-radius: 45px;
+ .avatar img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
   margin: 2px;
+}
+#speaker-list .details {
+  margin-bottom: 50px;
+}
+#speaker-list .details *{
+  color: #474747;
+}
+
+#speaker-list .speaker table{
+  table-layout: fixed;
+  width: 100%;
+}
+
+#speaker-list .details h3{
+  margin: 0;
+}
+#speaker-list .speaker table tr td{
+  vertical-align: top;
 }
 img.blue{border: 4px solid #05adda;}
 img.red {border: 4px solid #d31143;}
 img.gold {border: 4px solid #fdc532;}
 img.brown {border: 4px solid #704f00;}
 img.purple {border: 4px solid #665687;}
-span.affiliation {color: #ff6600;}
+img.gray {border: 4px solid #474747;}
+span.affiliation {color: #474747;}
 #registration-wrap {
   text-align: center;
   width: 100%;
@@ -409,6 +428,10 @@ footer a:hover {
   color: #444;
 }
 
+#speaker-list  .details h2{
+  color: #ff6600;
+}
+
 /* MISC */
 .clearfix:after {
   clear: both;
@@ -416,6 +439,11 @@ footer a:hover {
   display: block;
   visibility: hidden;
   height: 0;
+}
+.clock-icon{
+  background: url(../images/clock.png);
+  background-repeat: no-repeat;
+  padding-right: 25px;
 }
 
 .clearfix {display: inline-block;}
