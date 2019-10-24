@@ -1,0 +1,31 @@
+@media screen and (min-width:992px) and (max-width: 1199px) {
+    .item-number-one{
+        padding: 0px;
+    }
+
+    .subscribe{
+        margin: 0px auto 0 auto;
+        padding: 50px 50px 60px 50px;
+    }
+
+    .featured-slide-content{
+        padding-left: 50px;
+        padding-top: 50px;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width: 991px) {
+    .item-number-one{
+        padding: 0px;
+    }
+
+    .subscribe{
+        margin: 0px auto 0 auto;
+        padding: 50px 50px 60px 50px;
+    }
+
+    .featured-slide-content{
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+}

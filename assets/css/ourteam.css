@@ -1,0 +1,178 @@
+.team-description{
+    display: inline-block;
+    text-align: left;
+}
+
+@media (max-width:480px){
+    .team-description{
+        width: 90%;
+    }
+}
+
+.team-description p{
+    margin: 5px 0px 5px !important;
+}
+
+.team-description i{
+    color: #000000;
+    font-size: 5px !important;
+}
+
+.team-description li {
+    list-style: disc outside none;
+}
+
+.team-link{
+    color: #F3AE12;
+}
+
+.team-link:hover{
+    color: #ce9410;
+    text-decoration: none;
+}
+
+
+.rico{
+    background: url("../img/rico.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:200px;
+    height:200px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+.rico:hover{
+    background: url("../img/rico.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:210px;
+    height:210px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
+.carlo{
+    background: url("../img/carlo.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:200px;
+    height:200px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+.carlo:hover{
+    background: url("../img/carlo.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:210px;
+    height:210px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
+.isma{
+    background: url("../img/isma.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:200px;
+    height:200px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+.isma:hover{
+    background: url("../img/isma.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:210px;
+    height:210px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
+.aldrick{
+    background: url("../img/aldrick.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:200px;
+    height:200px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+.aldrick:hover{
+    background: url("../img/aldrick.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:210px;
+    height:210px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+

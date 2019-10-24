@@ -1,0 +1,70 @@
+/* properties of the subscribe card */
+.subscribe {
+    background-color: rgb(255,255,255);
+    padding:10px 50px 50px 50px;
+    margin: 3.5em auto 0 auto;
+    border-radius: 10px;
+    text-align: center;
+    width: 280px;
+    min-height: 325px;
+    height:auto;
+    color: #445963;
+    box-shadow: 6px 10px 20px -20px #4a4a4a;
+}
+
+/* Iamge:: Email Logo  */
+.subscribe img{
+    width: 100px;
+    height: 100px;
+}
+
+/* Title Card subscribe  */
+.subscribe h2 {
+    text-transform: uppercase;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size:27px;
+}
+/* Description of the "card subscribe" */
+.subscribe p {
+    letter-spacing: 0;
+    margin-top: 3px;
+    font-size: 16px;
+}
+
+/* email input */
+.subscribe input[type=email]  {
+    background-color: transparent;
+    text-align: center;
+    width: 100%;
+    color: #445963;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin-bottom: 30px;
+    margin-top: 18px;
+    font-size: 15px;
+    font-style: italic;
+    border-bottom: 1px solid #F3AE12;
+}
+
+.subscribe button{
+    background: rgba(255, 255, 255, 0%) !important;
+}
+
+.subscribe button:hover{
+    background: #F3AE12 !important;
+}
+
+.item-number-one{
+    padding-top: 100px;
+}
+
+.field-shift {
+    left: -9999px; position: absolute;
+}
+
+html[dir="rtl"] .field-shift {
+    right: -9999px;
+    left: auto;
+}

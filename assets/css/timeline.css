@@ -1,0 +1,170 @@
+.grey_light-block {
+    background-color: #f7f7f7;
+}
+
+.timeline {
+    position: relative;
+    background-image: linear-gradient(to bottom, #F3AE12, #F3B214, #F3B617, #F3BB1A, #F4BF1D, #F4C320, #F4C822, #F4CC25, #F5D028, #F5D52B, #F5D52E, #F6DE31);
+    width: 50px;
+    text-align: center;
+    transition: all .3s;
+}
+@media screen and (max-width: 768px) {
+    .timeline {
+        margin: 0 0 0 20px;
+    }
+}
+@media screen and (min-width: 769px) {
+    .timeline {
+        margin: 0 auto;
+    }
+}
+.timeline .point .year {
+    padding-top: 10px;
+    color: #ffffff;
+}
+.timeline .point .bocata {
+    position: relative;
+    background-color: #ffffff;
+    padding: 20px;
+    transition: all .3s;
+}
+@media screen and (max-width: 425px) {
+    .timeline .point .bocata {
+        width: 180px;
+    }
+    .timeline .point .bocata.little {
+        width: 180px;
+    }
+}
+@media screen and (min-width: 425px) and (max-width: 576px) {
+    .timeline .point .bocata {
+        width: 250px;
+    }
+    .timeline .point .bocata.little {
+        width: 250px;
+    }
+}
+@media screen and (min-width: 577px) {
+    .timeline .point .bocata {
+        width: 400px;
+    }
+    .timeline .point .bocata.little {
+        width: 250px;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 768px){
+    .timeline .point:not(:last-child){
+        padding-bottom: 10px;
+    }
+}
+.timeline .point .bocata + .bocata {
+    margin-top: 35px;
+}
+.timeline .point:nth-child(odd) .bocata {
+    box-shadow: -6px 10px 20px -20px #4a4a4a;
+    left: 100px;
+    position: relative;
+    z-index: 10;
+    border-radius: 10px;
+}
+.timeline .point:nth-child(odd) .bocata::after {
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    position: absolute;
+    z-index: 10;
+    border: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    margin-top: -10px;
+    top: 50%;
+    border-right: 10px solid #ffffff;
+    left: -10px;
+}
+.timeline .point:nth-child(even) .bocata {
+    box-shadow: 6px 10px 20px -20px #4a4a4a;
+    border-radius: 10px;
+}
+@media screen and (max-width: 768px) {
+    .timeline .point:nth-child(even) .bocata {
+        left: 100px;
+        position: relative;
+        z-index: 10;
+    }
+    .timeline .point:nth-child(even) .bocata::after {
+        content: '';
+        width: 0;
+        height: 0;
+        display: block;
+        position: absolute;
+        z-index: 10;
+        border: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        margin-top: -10px;
+        top: 50%;
+        border-right: 10px solid #ffffff;
+        left: -10px;
+    }
+}
+@media screen and (min-width: 769px) {
+    .timeline .point:nth-child(even) .bocata {
+        right: 425px;
+        position: relative;
+        z-index: 10;
+    }
+}
+@media screen and (min-width: 769px) and (min-width: 769px) {
+    .timeline .point:nth-child(even) .bocata.little {
+        right: 275px;
+    }
+}
+@media screen and (min-width: 769px) {
+    .timeline .point:nth-child(even) .bocata::after {
+        content: '';
+        width: 0;
+        height: 0;
+        display: block;
+        position: absolute;
+        z-index: 10;
+        border: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        margin-top: -10px;
+        top: 50%;
+        border-left: 10px solid #ffffff;
+        left: auto;
+        right: -10px;
+    }
+}
+.timeline .point .arrow {
+    border: solid #f7f7f7;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 20px;
+    transform: rotate(45deg);
+}
+.timeline .point:first-child .arrow, .timeline .point:last-child .arrow {
+    border: solid #f7f7f7;
+    border-width: 0 12px 12px 0;
+    display: inline-block;
+    padding: 20px;
+    transform: rotate(45deg);
+}
+.timeline .point .arrow-clean {
+    border: solid #f7f7f7;
+    border-width: 0 20px 20px 0;
+    display: inline-block;
+    padding: 20px;
+    position: absolute;
+    left: -5px;
+    bottom: -13px;
+    transform: rotate(45deg);
+}
+.title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1.28px;
+}
