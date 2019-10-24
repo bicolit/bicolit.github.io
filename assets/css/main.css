@@ -1,0 +1,12 @@
+.bicolit {
+    background: url(../../images/bicolit-dark.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: solid 1px #ffffff;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+}
