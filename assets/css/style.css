@@ -81,7 +81,7 @@ Last change: 27/07/2016
     .header-inner{padding:10px 0;border-bottom:1px solid #2b2120;}
     .header-inner-animation{transition: .4s all;-moz-transition: .4s all;-webkit-transition: .4s all;-o-transition: .4s all;}
 
-    #site-logo{width:65px;height:65px;float:left;background-image:url('../img/cs-logo-transparent-full.png');background-size:100%;background-repeat:no-repeat;display:block;}
+    #site-logo{width:65px;height:65px;float:left;background-image:url('../../images/bicolit-dark.png');background-size:100%;background-repeat:no-repeat;display:block;}
     .site-logo-small{width:45px !important;height:45px !important; margin-top: 9px!important;}
     .site-logo-animation{transition: .4s all;-moz-transition: .4s all;-webkit-transition: .4s all;-o-transition: .4s all;}
     #header-nav{float:right;}
