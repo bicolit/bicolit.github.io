@@ -73,12 +73,12 @@ Last change: 27/07/2016
 /* --- 2) HEADER --- */
 
     #site-header{width:100%;}
-    #site-header.fixed-header{position:fixed;top:0;margin:0 auto;z-index:137;background-color:#2b2120;}
+    #site-header.fixed-header{position:fixed;top:0;margin:0 auto;z-index:137;background-color:#2d2d2d;}
     body.boxed #site-header.fixed-header{width:auto;}
 
     #site-header.fixed-header ~ #main-content{padding-top:90px;}
 
-    .header-inner{padding:10px 0;border-bottom:1px solid #2b2120;}
+    .header-inner{padding:10px 0;border-bottom:1px solid #2d2d2d;}
     .header-inner-animation{transition: .4s all;-moz-transition: .4s all;-webkit-transition: .4s all;-o-transition: .4s all;}
 
     #site-logo{width:65px;height:65px;float:left;background-image:url('../../images/bicolit-dark.png');background-size:100%;background-repeat:no-repeat;display:block;}
