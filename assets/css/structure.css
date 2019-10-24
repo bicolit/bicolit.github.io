@@ -49,8 +49,8 @@ body {-webkit-print-color-adjust:exact;font-size:13px;line-height:1.5;color:#333
 
 .carousel .owl-controls{width:100%;height:20px;text-align:center;position:absolute;bottom:25px;}
 .carousel .owl-dots {display:inline-block;margin-left:-10px;}
-.carousel .owl-dot{width:12px;height:1px;float: left;margin-left:10px;background-color:#F3AE12;display:inline-block;margin-top:10px;border:0.5px solid rgba(17,17,17,0.8);}
-.carousel .owl-dot.active{height: 12px;background-color:#F3AE12;margin-top:-1px;border:0.5px solid rgba(17,17,17,0.8);}
+.carousel .owl-dot{width:12px;height:1px;float: left;margin-left:10px;background-color:#9ddcff;display:inline-block;margin-top:10px;border:0.5px solid rgba(17,17,17,0.8);}
+.carousel .owl-dot.active{height: 12px;background-color:#9ddcff;margin-top:-1px;border:0.5px solid rgba(17,17,17,0.8);}
 
 
 
