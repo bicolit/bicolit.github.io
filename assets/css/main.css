@@ -60,21 +60,21 @@
 .accordion a:hover,
 .accordion a:hover::after {
     cursor: pointer;
-    color: #F3AE12;
+    color: #9ddcff;
 }
 
 .accordion a:hover::after {
-    border: 1px solid #F3AE12;
+    border: 1px solid #9ddcff;
 }
 
 .accordion a.active {
-    color: #F3AE12;
-    border-bottom: 1px solid #F3AE12;
+    color: #9ddcff;
+    border-bottom: 1px solid #9ddcff;
 }
 
 .accordion a::after {
-    font-family: 'Ionicons';
-    content: '\f218';
+    font-family: 'FontAwesome';
+    content: '\f107';
     position: absolute;
     float: right;
     right: 1rem;
@@ -94,10 +94,10 @@
 }
 
 .accordion a.active::after {
-    font-family: 'Ionicons';
-    content: '\f209';
-    color: #F3AE12;
-    border: 1px solid #F3AE12;
+    font-family: 'FontAwesome';
+    content: '\f00d';
+    color: #9ddcff;
+    border: 1px solid #9ddcff;
 }
 
 .accordion .content {
