@@ -1,4 +1,3 @@
-bicolit.github.io
-=================
+# Bicol IT
 
-Bicol IT Organisation's Event Page
+Bicol IT Organization Website
