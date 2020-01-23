@@ -1,3 +1,3 @@
-# Bicol IT
+# BICOLIT.ORG INC. Website
 
-Bicol IT Organization Website
+Our nonprofit organization's website.
