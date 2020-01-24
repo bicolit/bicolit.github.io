@@ -128,22 +128,22 @@
 /* #endregion */
 
 /* #region our team */
-.team-description{
+.team-description {
     display: inline-block;
     text-align: left;
 }
 
-@media (max-width:480px){
-    .team-description{
+@media (max-width:480px) {
+    .team-description {
         width: 90%;
     }
 }
 
-.team-description p{
+.team-description p {
     margin: 5px 0px 5px !important;
 }
 
-.team-description i{
+.team-description i {
     color: #000000;
     font-size: 5px !important;
 }
@@ -152,16 +152,16 @@
     list-style: disc outside none;
 }
 
-.team-link{
+.team-link {
     color: #F3AE12;
 }
 
-.team-link:hover{
+.team-link:hover {
     color: #ce9410;
     text-decoration: none;
 }
 
-.teamone{
+.teamone {
     background: url("../../images/bicolit-dark.png");
     background-size:     cover;
     background-repeat:   no-repeat;
@@ -178,5 +178,41 @@
     filter: gray; /* IE6-9 */
     -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
     filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.sparkpoint {
+    background: url("../../images/sparkpoint.png");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:200px;
+    height:200px;
+}
+
+.caw {
+    background: url("../../images/caw.png");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:200px;
+    height:200px;
+}
+
+.agpt {
+    background: url("../../images/agpt.png");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:200px;
+    height:200px;
 }
 /* #endregion */
