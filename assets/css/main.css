@@ -180,32 +180,14 @@
     filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
 }
 
-.sparkpoint {
-    background: url("../../images/sparkpoint.png");
-    background-size:     cover;
-    background-repeat:   no-repeat;
-    background-position: center center;
-    margin-bottom:20px;
-    display:inline-block;
-    border-radius: 10px;
-    width:200px;
-    height:200px;
-}
+.sparkpoint { background: url("../../images/sparkpoint.png"); }
+.caw { background: url("../../images/caw.png"); }
+.agpt { background: url("../../images/agpt.png"); }
+.silideli { background: url("../../images/silideli.png"); }
+.swb { background: url("../../images/swb2.png"); }
+.buidl { background: url("../../images/buidl.png"); }
 
-.caw {
-    background: url("../../images/caw.png");
-    background-size:     cover;
-    background-repeat:   no-repeat;
-    background-position: center center;
-    margin-bottom:20px;
-    display:inline-block;
-    border-radius: 10px;
-    width:200px;
-    height:200px;
-}
-
-.agpt {
-    background: url("../../images/agpt.png");
+.partner {
     background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center;
