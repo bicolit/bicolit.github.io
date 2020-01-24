@@ -179,22 +179,7 @@
     -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
     filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
 }
-
-.sparkpoint { background: url("../../images/sparkpoint.png"); }
-.caw { background: url("../../images/caw.png"); }
-.agpt { background: url("../../images/agpt.png"); }
-.silideli { background: url("../../images/silideli.png"); }
-.swb { background: url("../../images/swb.png"); }
-.buidl { background: url("../../images/buidl.png"); }
-
-.partner {
-    background-size:     cover;
-    background-repeat:   no-repeat;
-    background-position: center center;
-    margin-bottom:20px;
-    display:inline-block;
-    border-radius: 10px;
-    width:200px;
-    height:200px;
+.partner-logo {
+    padding: 20px;
 }
 /* #endregion */
