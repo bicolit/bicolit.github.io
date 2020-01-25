@@ -51,7 +51,7 @@
     flex-direction: column;
     width: 100%;
     padding: 1rem 3rem 1rem 1rem;
-    color: #7288a2;
+    color: #000000;
     font-size: 1.15rem;
     font-weight: 400;
     border-bottom: 1px solid #e5e5e5;
@@ -60,16 +60,16 @@
 .accordion a:hover,
 .accordion a:hover::after {
     cursor: pointer;
-    color: #9ddcff;
+    color: #f3ae12;
 }
 
 .accordion a:hover::after {
-    border: 1px solid #9ddcff;
+    border: 1px solid #f3ae12;
 }
 
 .accordion a.active {
-    color: #9ddcff;
-    border-bottom: 1px solid #9ddcff;
+    color: #f3ae12;
+    border-bottom: 1px solid #f3ae12;
 }
 
 .accordion a::after {
@@ -79,7 +79,7 @@
     float: right;
     right: 1rem;
     font-size: 1rem;
-    color: #7288a2;
+    color: #000000;
     padding: 2px 0px 0px 0.3px;
     text-align: center;
     vertical-align:middle;
@@ -89,15 +89,15 @@
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    border: 1px solid #7288a2;
+    border: 1px solid #000000;
     text-align: center;
 }
 
 .accordion a.active::after {
     font-family: 'FontAwesome';
     content: '\f00d';
-    color: #9ddcff;
-    border: 1px solid #9ddcff;
+    color: #f3ae12;
+    border: 1px solid #f3ae12;
 }
 
 .accordion .content {
