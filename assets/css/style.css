@@ -73,7 +73,7 @@ Last change: 27/07/2016
 /* --- 2) HEADER --- */
 
     #site-header{width:100%;}
-    #site-header.fixed-header{position:fixed;top:0;margin:0 auto;z-index:137;background-color:#2d2d2d;}
+    #site-header.fixed-header{position:fixed;top:0;margin:0 auto;z-index:137;background-color:#000000;}
     body.boxed #site-header.fixed-header{width:auto;}
 
     #site-header.fixed-header ~ #main-content{padding-top:90px;}
@@ -81,7 +81,7 @@ Last change: 27/07/2016
     .header-inner{padding:10px 0;border-bottom:1px solid #2d2d2d;}
     .header-inner-animation{transition: .4s all;-moz-transition: .4s all;-webkit-transition: .4s all;-o-transition: .4s all;}
 
-    #site-logo{width:65px;height:65px;float:left;background-image:url('../../images/bicolit-dark.png');background-size:100%;background-repeat:no-repeat;display:block;}
+    #site-logo{width:65px;height:65px;float:left;background-image:url('../../images/bicolit-logo.png');background-size:100%;background-repeat:no-repeat;display:block;}
     .site-logo-small{width:45px !important;height:45px !important; margin-top: 9px!important;}
     .site-logo-animation{transition: .4s all;-moz-transition: .4s all;-webkit-transition: .4s all;-o-transition: .4s all;}
     #header-nav{float:right;}
@@ -170,7 +170,7 @@ Last change: 27/07/2016
     .page-content h5{font-size:11px;line-height:16px;}
     .page-content h6{font-size:9px;line-height:14px;}
     .page-content h1 + p,.page-content h2 + p,.page-content h3 + p,.page-content h4 + p,.page-content h5 + p,.page-content h6 + p{margin-top:5px;}
-    .page-content p{font-size:13px;color:#111111;line-height:22px;margin-bottom:20px;font-family:'Open Sans', sans-serif;font-weight:400;}
+    .page-content p{font-size:15px;color:#111111;line-height:24px;margin-bottom:20px;font-family:'Open Sans', sans-serif;font-weight:400;}
     .page-content blockquote{border-left:2px solid;border-color:#111111;padding-left:20px;margin-left:0;}
     .page-content a{color:#111111;text-decoration:underline;}
     .page-content strong{font-weight:700;}
@@ -401,21 +401,21 @@ Last change: 27/07/2016
 
     .featured-narrow{width:1110px;margin:0 auto;}
 
-    #featured-slideshow-outer,#featured-banner-outer{position:relative;height:600px;overflow:hidden;}
-    .featured-slide{height:600px;max-width:100%;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#f3f3f3;}
-    .featured-slide .container{height:100%;position:relative;width:1110px;}
-    body.boxed .featured-slide .container{width:100%;padding:0!important;}
-    .featured-slide-content{z-index:42;text-align:center;position:absolute;top:50%;left:0;right:0;margin-left:auto;margin-right:auto;transform:translateY(-50%);-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);}
-    .featured-slide-content h2{font-size:36px;color:#111111;line-height:40px;letter-spacing:1.5px;font-weight:400;margin-bottom:15px;text-transform:uppercase;}
-    .featured-slide-content p{font-size:15px;color:#111111;line-height:23px;font-family:'Open Sans', sans-serif;font-weight:400;}
-    .featured-slide-content .primary-button{margin-top:25px;margin-left:10px;}
-    .featured-slide-content h2 + .primary-button,.featured-slide-content p + .primary-button{margin-left:0;}
+    #featured-slideshow-outer,#featured-banner-outer {position:relative;height:600px;overflow:hidden;}
+    .featured-slide {height:600px;max-width:100%;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#f3f3f3;}
+    .featured-slide .container {height:100%;position:relative;width:1110px;}
+    body.boxed .featured-slide .container {width:100%;padding:0!important;}
+    .featured-slide-content {z-index:42;text-align:center;position:absolute;top:50%;left:0;right:0;margin-left:auto;margin-right:auto;transform:translateY(-50%);-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);}
+    .featured-slide-content h2 {font-size:36px;color:#111111;line-height:40px;letter-spacing:1.5px;font-weight:400;margin-bottom:15px;text-transform:uppercase;}
+    .featured-slide-content p {font-size:40px;color:#111111;line-height:60px;font-weight:bold;}
+    .featured-slide-content .primary-button {margin-top:25px;margin-left:10px;}
+    .featured-slide-content h2 + .primary-button,.featured-slide-content p + .primary-button {margin-left:0;}
 
     .featured-left{text-align:left;max-width:50%;margin-left:0;}
     .featured-narrow .featured-left,body.boxed .featured-left{margin-left:100px;}
     .featured-right{text-align:right;max-width:50%;margin-right:0;}
     .featured-narrow .featured-right,body.boxed .featured-right{margin-right:100px;}
-    .featured-center{text-align:center;max-width:60%;}
+    .featured-center{text-align:center;max-width:75%;}
 
     .featured-content-background{padding:25px;}
 
@@ -435,7 +435,7 @@ Last change: 27/07/2016
     .block-item-icon{width:100%;height:100px;text-align:center;}
     .block-item-icon .fa{color:#888888;font-size:35px;margin-top:32px;}
     .block-item h3{font-size:18px;color:#111111;line-height:22px;}
-    .block-item p,.block-item a{font-size:13px;color:#888888;line-height:22px;font-family:'Open Sans', sans-serif;font-weight:400;text-decoration:none;margin-top:5px;display:block;}
+    .block-item p,.block-item a{font-size:15px;color:#888888;line-height:24px;font-family:'Open Sans', sans-serif;font-weight:400;text-decoration:none;margin-top:5px;display:block;}
 
 
     /* -- image block section -- */
@@ -452,7 +452,7 @@ Last change: 27/07/2016
 
     .team-item{text-align:center;margin-bottom:50px;}
     .team-item img{margin-bottom:20px;display:inline-block;border-radius: 50%;width:200px;height:200px;}
-    .team-item h3{font-size:16px;line-height:20px;font-weight:400;letter-spacing:1px;text-transform:uppercase;}
+    .team-item h3{font-size:14px;line-height:20px;font-weight:400;letter-spacing:1px;text-transform:uppercase;}
     .team-item p{font-size:14px;color:#888888;line-height:18px;letter-spacing:1px;margin-top:5px;}
 
     .team-social{margin-top:20px;display:inline-block;}

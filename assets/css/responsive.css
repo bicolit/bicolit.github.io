@@ -63,7 +63,7 @@ Last change: 27/07/2016
 
         #site-header{width:100%;position:fixed;top:0;z-index:100;}
 
-        .header-inner{background-color:#2d2d2d;}
+        .header-inner{background-color:#000000;}
 
         .medium-header-container{height:70px;position:relative;}
 
@@ -288,12 +288,14 @@ Last change: 27/07/2016
 
     /* -- home page -- */
 
-    .featured-section,.featured-slide{height:400px;overflow:hidden;}
-    .featured-narrow,.featured-slide .container{width:100%;}
-    .featured-slide-content{max-width:90%;text-align:center;margin:0 auto;}
-    .featured-slide-content h2{font-size:27px;line-height:32px;}
-    .featured-slide-content p{font-size:14px;line-height:20px;}
-    .featured-narrow .featured-left, body.boxed .featured-left,.featured-narrow .featured-right, body.boxed .featured-right{margin:0 auto;}
+    .featured-section,.featured-slide {height:400px;overflow:hidden;}
+    .featured-narrow,.featured-slide .container {width:100%;}
+    .featured-slide-content {max-width:90%;text-align:center;margin:0 auto;}
+    .featured-slide-content h2 {font-size:27px;line-height:32px;}
+    .featured-slide-content p {font-size:18px;line-height:28px;}
+    .mission-text p {font-size: 1.3em !important; line-height: 1.5em !important;}
+    p.wallet-address {font-size: .9em !important; color:#888888 !important;}
+    .featured-narrow .featured-left, body.boxed .featured-left,.featured-narrow .featured-right, body.boxed .featured-right {margin:0 auto;}
 
     #featured-slideshow-outer:hover .slideshow-btn{opacity:0;}
 
