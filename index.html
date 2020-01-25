@@ -1,208 +1,489 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
+<html lang="en">
+<head>
+<!-- #region page title -->
+    <title>Bicol IT</title>
+<!-- #endregion -->
+
+<!-- #region page icon-->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+<!-- #endregion -->
+
+<!-- #region meta-->
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta content="Bicol IT Blockchain Meetup 0x2, Legazpi Chapter, August 3, 2019, 3pm - 5pm, 
-          Ctrl Alt Work, 2F RJV Commercial Building, Rizal St., Cor. Gov. Reynolds St., Old Albay District, Legazpi, City" name="description">
-    <meta content="Bicol IT Blockchain Meetup 0x2, Legazpi Chapter, August 3, 2019, 3pm - 5pm, 
-          Ctrl Alt Work, 2F RJV Commercial Building, Rizal St., Cor. Gov. Reynolds St., Old Albay District, Legazpi, City" property="og:description">
-    <meta content="Bicol IT, crypto, web hosting, tech talk, meetup, startup, twitter bootstrap, full stack technologies, ruby on rails, adobe photoshop, freelancing, it certification, professional enhancement" name="keywords">
-     <!--meta property="og:image" content="https://raw.githubusercontent.com/bicolIT/bicolit.github.io/e5c001150b3e6238c4ef12ee5a55f9b7e654ad68/images/thumbnail/nagatechtalk.png" />-->
-  
+    <meta content="Bicol IT Blockchain Meetup 0x2, Legazpi Chapter, August 3, 2019, 3pm - 5pm, Ctrl Alt Work, 2F RJV Commercial Building, Rizal St., Cor. Gov. Reynolds St., Old Albay District, Legazpi, City" name="description">
+    <meta content="Bicol IT Blockchain Meetup 0x2, Legazpi Chapter, August 3, 2019, 3pm - 5pm, Ctrl Alt Work, 2F RJV Commercial Building, Rizal St., Cor. Gov. Reynolds St., Old Albay District, Legazpi, City" property="og:description">
+
     <!-- Meta -->
-    <meta content="http://bicolit.org/images/thumbnail/blockchain-meetup-02.png" property="og:image">
-    <meta content="http://bicolit.org/images/preview-logo.jpg" name="twitter:image">
-    <meta content="Bicol Information Technology Organization" property="og:title">
-    <meta content="Bicol Information Technology Organization" property="og:site_name">
-    <meta content="Bicol Information Technology Organization" name="twitter:title">
+    <meta content="https://bicolit.org/images/og1.jpg" property="og:image">
+    <meta content="https://bicolit.org/images/favicon.png" name="twitter:image">
+    <meta content="BICOLIT.ORG INC." property="og:title">
+    <meta content="BICOLIT.ORG INC." property="og:site_name">
+    <meta content="BICOLIT.ORG INC." name="twitter:title">
     <meta content="website" property="og:type">
-    <meta content="http://bicolit.org/" property="og:url">
-    <meta content="http://bicolit.org/" name="twitter:url">
-    <link href="http://bicolit.org/" rel="canonical">
+    <meta content="https://bicolit.org/" property="og:url">
+    <meta content="https://bicolit.org/" name="twitter:url">
+    <link href="https://bicolit.org/" rel="canonical">
+<!-- #endregion -->
 
-    <link href='http://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<!-- #region google analytics -->
+    <!--
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-45673507-1', 'bicolit.org');
-      ga('send', 'pageview');
-
+        ga('create', 'UA-45673507-1', 'bicolit.org');
+        ga('send', 'pageview');
     </script>
+    -->
+<!-- #endregion -->
 
-    <title>Bicol Information Technology Organization | Bicol IT Blockchain Meetup 0x2</title>
-  </head>
+<!-- #region css-->
+    <!-- theme css -->
+    <link href="assets/css/structure.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
 
-  <body>
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=219962498057137&version=v2.0";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- carousel css -->
+    <link href="assets/js/lib/owl-carousel/owl.carousel.css" rel="stylesheet">
 
-    <header>
-      <div class="inner">
-        <h1>Bicol IT Blockchain Meetup 0x2<br/>Legazpi Chapter</h1>
-        <h2>
-          August 3, 2019. Saturday, 3:00 pm - 5:00 pm<br />
-          <br />
-          Ctrl Alt Work, 2F RJV Commercial Building, Rizal St., 
-          <br />
-          Cor. Gov. Reynolds St., Old Albay District,
-          <br />
-          4500 Legazpi, Albay
-          <br /><br />
-        </h2>
+    <!-- google fonts used -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" type="text/css">
 
-        <a href="https://forms.gle/X9xFjN7qLXcht9bVA" class="register-btn" target="_blank">Register Now</a>
-      </div>
+    <!-- for footer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="assets/css/footer.css" rel="stylesheet" type="text/css" />
+
+    <!-- main -->
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+<!-- #endregion -->
+</head>
+
+<body class="page-template-home">
+<!-- #region header -->
+    <header id="site-header" class="fixed-header">
+        <div class="header-main">
+            <div class="container">
+                <div id="header-fix" class="header-inner clearfix">
+                    <div class="medium-header-container">
+                        <!-- Site logo -->
+                        <a href="#home" id="site-logo" class="js-anchor-link"></a>
+                        <!-- Mobile burger icon -->
+                        <div id="mobile-nav-button" class="hidden-desk hidden-tab">
+                            <div id="mobile-nav-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- header nav menu -->
+                    <nav id="header-nav">
+                        <ul id="nav-ul" class="menu font-montserrat-reg clearfix">
+                            <li class="menu-item">
+                                <a href="#mission" class="js-anchor-link">Mission<span class="sub-drop-icon fa fa-angle-down"></span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#donate" class="js-anchor-link">Donate<span class="sub-drop-icon fa fa-angle-down"></span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#ourpeople" class="js-anchor-link">People<span class="sub-drop-icon fa fa-angle-down"></span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#partners" class="js-anchor-link">Partners<span class="sub-drop-icon fa fa-angle-down"></span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#contactus" class="js-anchor-link">Contact<span class="sub-drop-icon fa fa-angle-down"></span></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </header>
+<!-- #endregion -->
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
+<!-- #region main content-->
+    <div id="main-content">
 
-          <!-------- SPEAKERS -------->
-          <div id="speaker-list">
-            <h2>Speakers</h2>
-
-            
-            <article class="speaker">
-              <table>
-                <tr>
-                  <td>
-                     <div class="avatar">
-                      <img src="images/speakers/harvey.png" alt="Harvey Javier " class="gray">
+        <!-- #region home -->
+        <section id="home" class="featured-section">
+            <div id="featured-banner-outer">
+                <!-- banner example -left assigned desktop -->
+                <div class="featured-slide copyright-desktop" style="background-image:url(images/flutter-workshop.jpg);">
+                    <div class="container">
+                        <div class="featured-slide-content featured-center boxed">
+                            <p style="color: #ffffff;">Transforming Bicol into a globally competitive Information Technology hub through Education and Technopreneurship.</p>
+                        </div>
                     </div>
-                  </td>
-                  <td colspan="4">
-                    <div class="details">
-                      <h2>"How We Made SparkX Cryptocurrency Wallet App in 2 Months"</h2>
-                      <h3>
-                        <i class="clock-icon"></i>3:00 pm - 3:30 pm</h3>
-
-                      <h3> Harvey Javier </h3>
-                        <p>Lead Mobile Developer, <a href="https://www.facebook.com/sparkpointinnovationsph/" target="_blank">Sparkpoint Innovations Inc</a></p>
-             
+                </div>
+                <!-- banner example -left assigned mobile -->
+                <div class="featured-slide copyright-mobile" style="background-image:url(images/flutter-workshop.jpg);">
+                    <div class="container">
+                        <div class="featured-slide-content featured-center boxed">
+                            <p style="color: #ffffff;">Transforming Bicol into a globally competitive Information Technology hub through education and technopreneurship.</p>
+                        </div>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                     <div class="avatar">
-                      <img src="images/speakers/aldrick.png" alt="Aldrick Bonaobra" class="gray">
-                    </div>
-                  </td>
-                  <td colspan="4">
-                    <div class="details">
-
-                      <h2>"What are Non-Fungible Tokens?"</h2>
-
-                      <h3>
-                        <i class="clock-icon"></i>3:30 pm - 4:00 pm
-                      </h3> 
-
-                      <h3> Aldrick Bonaobra </h3>
-                         <p>Blockchain Developer, <a href="https://www.facebook.com/cryptosolitaire/" target="_blank">CryptoSolitaire</a></p>
-                    
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </article>
-          </div>
-
-          <!-------- AGENDA -------->
-          <section class="agenda">
-             <h3>Agenda</h3>
-              <table>
-                 <tr>
-                  <td>03:00PM - 03:30PM</td>
-                  <td><strong>Talk 1: "How We Made SparkX Cryptocurrency Wallet App in 2 Months"</strong></td>
-                </tr>
-                </tr>
-                
-                 <tr>
-                  <td>03:30PM - 04:00PM</td>
-                  <td><strong>Talk 2: "What are Non-Fungible Tokens?"</strong></td>
-                </tr>
-            
-                <tr>
-                  <td>04:30PM - 05:00PM</td>
-                  <td>Q&amp;A and Group Photo</td>
-                </tr>
-                <tr>
-                  <td>05:00PM - onwards</td>
-                  <td>Socialization</td>
-                </tr>
-              </table>
-          </section>
-         
-
-          <p></p>
-
-
-          <!-------- SPONSORS -------->
-          <!-- <section>
-            <h2>Our Sponsors</h2>
-            <a href="https://www.facebook.com/webdesigners.org.ph"><img src="images/partners/pwdo.png"  alt="Philippine Web Designers Organization" width="146px"></a>
-            <a href=""><img src="images/partners/adsoph.png"  alt="ADSO PH" width="146px"></a>
-            <a href=""><img src="images/partners/abashop.jpg"  alt="Aba Grasscutter Shop" width="146px"></a>
-            <a href=""><img src="images/partners/1327hub.jpg"  alt="1327 Hub" width="146px"></a>
-          </section> -->
-    
-          <!-------- PARTNERS -------->
-          <section>
-            <h2>Our Partners</h2>
-             <a href="https://www.facebook.com/ctrlaltwork/"><img src="images/partners/caw.jpg"  alt="CTRL AT WORK" width="146px"></a>
-          </section>
-          
-
-          
-          <br /> <br />
-
-          <!-------- VENUE -------->
-          <h2>Our Venue</h2>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.3687892290727!2d123.73014021429631!3d13.139122090746135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a103174e3903bf%3A0xdd3c13eec957b7a2!2sCtrl%2BAlt%2BWork!5e0!3m2!1sen!2sph!4v1561727354718!5m2!1sen!2sph" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-          <br />
-          <br />
-          <h2>Contacts</h2>
-          <h5>Need further info? Please get in touch with us through our
-          <a href="https://www.facebook.com/groups/BicolIT/" target="_blank">Bicol IT Facebook Group</a>. Feel free to post your enquiries on any of the pinned posts and the group admins will respond as soon as possible.</h5>
+                </div>
+            </div>
         </section>
+        <!-- #endregion -->
 
-        <aside id="sidebar">
-          <img src="images/bit.svg" alt="Bicol IT Organization" class="logo">
-          <h4>About Us</h4>
-          <p>Bicol Information Technology Organization is a community of IT professionals who are from and are in the Bicol Region, Philippines. Our primary objective is to share our expertise, conduct regular meetups in Legazpi City, Metro Manila and hopefully soon in Naga City and the rest of the region.</p>
-          <p>We conduct regular technology talks for free for students and professionals to augment the training needs and expose others to the latest trends in information technology.</p>
-          <h4>Get in touch!</h4>
-          <ul id="social-links">
-            <li><a href="https://www.facebook.com/groups/BicolIT/">Join us on Facebook</a></li>
-            <li><a href="https://twitter.com/bicolIT">Follow us on Twitter</a></li>
-            <li><a href="https://plus.google.com/u/0/communities/110676205302770617092">Join our Google+ Community</a></li>
-            <li><a href="http://www.youtube.com/channel/UC3Duga83_jpmTmfAMBSy3bQ">Our YouTube Channel</a></li>
-            <li><a href="http://www.slideshare.net/bicolIT">Follow us on SlideShare</a></li>
-          </ul>
-          <div class="fb-like-box" data-href="https://www.facebook.com/bicolitorg" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
-        </aside>
-      </div>
+        <!-- #region features -->
+        <section class="block-section">
+            <div class="container">
+                <div class="section-inner no-border">
+                    <!-- about block item list -->
+                    <ul class="row">
+                        <!-- about block item example -->
+                        <li class="col-xlarge-6 col-medium-6 col-small-12">
+                            <div class="block-item">
+                                <div class="row">
+                                    <div class="col-xlarge-3 col-medium-12 col-small-12">
+                                        <div class="block-item-icon" style="background: url('images/icon-1.png'); background-repeat: no-repeat; background-size: contain; border-radius: 10px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-xlarge-9 col-medium-12 col-small-12">
+                                        <h3 class="font-montserrat-reg">5000+ Members</h3>
+                                        <p>From its inception in 2013, our community has grown from a few enthusiasts to thousands of students, professionals, founders, and academics.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- about block item example -->
+                        <li class="col-xlarge-6 col-medium-6 col-small-12">
+                            <div class="block-item">
+                                <div class="row">
+                                    <div class="col-xlarge-3 col-medium-12 col-small-12">
+                                        <div class="block-item-icon" style="background: url('images/icon-2.png'); background-repeat: no-repeat; background-size: contain; border-radius: 10px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-xlarge-9 col-medium-12 col-small-12">
+                                        <h3 class="font-montserrat-reg">35+ Events</h3>
+                                        <p>We've conducted dozens of seminars, meetups, and workshops on various technologies that have attracted thousands of participants from all over Bicol.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- about block item example -->
+                        <li class="col-xlarge-6 col-medium-6 col-small-12">
+                            <div class="block-item">
+                                <div class="row">
+                                    <div class="col-xlarge-3 col-medium-12 col-small-12">
+                                        <div class="block-item-icon" style="background: url('images/icon-3.png'); background-repeat: no-repeat; background-size: contain; border-radius: 10px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-xlarge-9 col-medium-12 col-small-12">
+                                        <h3 class="font-montserrat-reg">100+ Speakers</h3>
+                                        <p>Our events always feature experts from the industry. We're grateful for their continuous support in sharing their knowledge with our members. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- about block item example -->
+                        <li class="col-xlarge-6 col-medium-6 col-small-12">
+                            <div class="block-item">
+                                <div class="row">
+                                    <div class="col-xlarge-3 col-medium-12 col-small-12">
+                                        <div class="block-item-icon" style="background: url('images/icon-4.png'); background-repeat: no-repeat; background-size: contain; border-radius: 10px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-xlarge-9 col-medium-12 col-small-12">
+                                        <h3 class="font-montserrat-reg">Government Registered</h3>
+                                        <p><strong>BICOLIT.ORG INC.</strong> is a duly registered nonprofit corporation under SEC, BIR, LGU, and other government institutions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- #endregion -->
+
+        <!-- #region mission -->
+        <section id="mission" class="gray_light-block">
+            <div class="container">
+                <div class="section-inner no-border">
+                    <!-- Section title -->
+                    <div class="section-title">
+                        <h2 class="font-montserrat-reg" style="color: #0576b5">Our Mission</h2>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xlarge-7">
+                            <div class="page-content mission-text">
+                                <p>Establish the first Blockchain school in the Bicol region. Train and find employment for 500 professionals in the emerging Blockchain industry per year. And contribute around ₱150,000,000 annually for the Bicol economy.</p>
+                                <p id="donate"><strong><a href="#donate">Donate via Crypto</a></strong></p>
+                            </div>
+                        </div>
+
+                        <div class="col-xlarge-5 featured">
+                            <img src="images/techtalk.jpg" class="image" alt="Bicol IT Startup Tech Talks" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- #endregion -->
+
+        <!-- #region donate -->
+        <section id="donate" class="block-section">
+            <div class="container">
+                <div class="section-inner">
+                    <!-- Section title -->
+                    <div class="section-title">
+                        <h2 class="font-montserrat-reg" style="color: #0576b5">Support Our Cause</h2>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <a style="color: #000000">Donate with Bitcoin (BTC)</a>
+                            <div class="content">
+                                <img src="images/qr-btc.png" class="image" alt="Bitcoin Address" style="max-width:320px;" />
+                                <p class="wallet-address">3HP8d7N9BfFwMBFxaEcPjnEiM2giUzcgi1</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a style="color: #000000">Donate with Ether (ETH), SparkPoint (SRK), and other ERC-20 tokens</a>
+                            <div class="content">
+                                <img src="images/qr-eth.png" class="image" alt="Ethereum Address" style="max-width:320px;" />
+                                <p class="wallet-address">0x2aAEAC68d7883E894f311e9d8b8dD3C6582E7904</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a style="color: #000000">Donate with Binance Coin (BNB)</a>
+                            <div class="content">
+                                <img src="images/qr-bnb.png" class="image" alt="Binance Coin Address" style="max-width:320px;" />
+                                <p class="wallet-address">bnb1etpzcptne6u7f64uhgcvallkqfyf5srxdlygj3</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a style="color: #000000">Donate with Fiat</a>
+                            <div class="content">
+                                <p>Coming soon!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- #endregion -->
+        <!-- #region our people-->
+        <section id="ourpeople" class="people-section">
+            <div class="container">
+                <div class="section-inner">
+                    <!-- Section title -->
+                    <div class="section-title">
+                        <h2 class="font-montserrat-reg" style="color: #0576b5">The Founders</h2>
+                    </div>
+
+                    <!-- people list -->
+                    <ul class="row">
+                        <!-- people example -->
+                        <li class="col-xlarge-1"></li>
+                        <li class="col-xlarge-2 col-medium-6 col-small-12">
+                            <div class="team-item">
+                                <div class="people harris"></div>
+                                <h3 class="font-montserrat-reg">Harris Rainier</h3>
+                                <p><a href="https://www.linkedin.com/in/ohrainier/"><i class="fa fa-linkedin"></i></a></p>
+                            </div>
+                        </li>
+                        <li class="col-xlarge-2 col-medium-6 col-small-12">
+                            <div class="team-item">
+                                <div class="people rico"></div>
+                                <h3 class="font-montserrat-reg">Rico Zuñiga</h3>
+                                <p><a href="https://www.linkedin.com/in/ricoz/"><i class="fa fa-linkedin"></i></a></p>
+                            </div>
+                        </li>
+                        <li class="col-xlarge-2 col-medium-6 col-small-12">
+                            <div class="team-item">
+                                <div class="people jason"></div>
+                                <h3 class="font-montserrat-reg">Jason Batalla</h3>
+                                <p><a href="https://www.linkedin.com/in/jasonbatalla/"><i class="fa fa-linkedin"></i></a></p>
+                            </div>
+                        </li>
+                        <li class="col-xlarge-2 col-medium-6 col-small-12">
+                            <div class="team-item">
+                                <div class="people richardg"></div>
+                                <h3 class="font-montserrat-reg">Chard Gonzales</h3>
+                                <p><a href="https://www.linkedin.com/in/chardgonzales/"><i class="fa fa-linkedin"></i></a></p>
+                            </div>
+                        </li>
+                        <li class="col-xlarge-2 col-medium-6 col-small-12">
+                            <div class="team-item">
+                                <div class="people richardn"></div>
+                                <h3 class="font-montserrat-reg">Richard Nacar</h3>
+                                <p><a href="https://www.linkedin.com/in/richardnacar/"><i class="fa fa-linkedin"></i></a></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- #endregion -->
+
+        <!-- #region partners -->
+        <section id="partners" class="team-section featured">
+            <div class="container">
+                <div class="section-inner">
+                    <div class="section-title">
+                        <h2 class="font-montserrat-reg" style="color: #0576b5">Partners and Sponsors</h2>
+                    </div>
+
+                    <ul class="row">
+                        <li class="col-xlarge-4 col-medium-6 col-small-12">
+                            <a href="https://sparkpoint.io/"><img src="images/sparkpoint.png" class="image partner-logo" alt="SparkPoint" /></a>
+                        </li>
+                        <li class="col-xlarge-4 col-medium-6 col-small-12">
+                            <a href="https://www.facebook.com/ctrlaltwork/"><img src="images/caw.png" class="image partner-logo" alt="Ctrl Alt Work Coworking Space" /></a>
+                        </li>
+                        <li class="col-xlarge-4 col-medium-6 col-small-12">
+                            <a href="http://www.agpt.com.ph/"><img src="images/agpt.png" class="image partner-logo" alt="AGPT Accounting & Business Consultancy" /></a>
+                        </li>
+                    </ul>
+                    <ul class="row">
+                        <li class="col-xlarge-4 col-medium-6 col-small-12">
+                            <a href="https://www.facebook.com/silideli/"><img src="images/silideli.png" class="image partner-logo" alt="SILI DELI BU-DOST TBI" /></a>
+                        </li>
+                        <li class="col-xlarge-4 col-medium-6 col-small-12">
+                            <a href="http://communities.techstars.com/philippines/bicol-philippines/startup-weekend"><img src="images/swb.png" class="image partner-logo" alt="Techstars Startup Weekend Bicol" /></a>
+                        </li>
+                        <li class="col-xlarge-4 col-medium-6 col-small-12">
+                            <a href="https://consensys.net/developers/buidlnetwork/"><img src="images/buidl.png" class="image partner-logo" alt="ConsenSys #BUIDL Network" /></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- #endregion -->
+
+        <!-- #region contact us -->
+        <section id="contactus" class="contact-form-section">
+            <div class="container">
+                <div class="section-inner">
+                    <!-- Section title -->
+                    <div class="section-title">
+                        <h2 class="font-montserrat-reg" style="color: #0576b5">Get In Touch</h2>
+                    </div>
+
+                    <div class="row">
+                        <!-- contact text content -->
+                        <div class="col-xlarge-4 col-large-12 col-medium-12 col-small-12">
+                            <div class="contact-text-content">
+                                <div class="page-content">
+                                    <!-- contact block item example -->
+                                    <div class="col-xlarge-12 col-medium-12">
+                                        <div class="block-item">
+                                            <div class="row">
+                                                <div class="col-xlarge-12 col-large-12 col-medium-12 col-small-12">
+                                                    <div class="featured">
+                                                        <img src="images/caw.jpg" class="image" style="border-radius:10px; width: 100%;" alt="Ctrl Alt Work Coworking Space" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xlarge-12 col-large-12 col-medium-12 col-small-12">
+                                                    <h3 class="font-montserrat-reg"><i class="fa fa-map-marker"></i> Bicol IT @ Ctrl Alt Work</h3>
+                                                    <p>2F RJV Commercial Building, Rizal St., Cor. Gov. Reynolds St., Old Albay District, Legazpi City, 4500, Albay, Philippines</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- contact form -->
+                        <div class="col-xlarge-8 col-large-12 col-medium-12 col-small-12">
+                            <div id="success-message" class="notification"><p class="font-opensans-reg"></p></div>
+                            <div id="error-message" class="notification"><p class="font-opensans-reg"></p></div>
+                            <!-- contact form -->
+                            <form method="post" action="https://formspree.io/support@bicolit.org">
+                                <div class="row">
+                                    <div class="col-xlarge-6 col-medium-6 col-small-12">
+                                        <input name="name" id="name" type="text" class="input-field" value="" placeholder="Name" tabindex="1" required />
+                                    </div>
+                                    <div class="col-xlarge-6 col-medium-6 col-small-12">
+                                        <input name="email" id="email" type="email" class="input-field" placeholder="Email" tabindex="2" required />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xlarge-12 col-medium-12 col-small-12">
+                                        <textarea name="message" id="message" class="input-textarea" tabindex="4" placeholder="Message" required></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="secondary-button font-montserrat-reg hov-bk col-small-12">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- #endregion -->
     </div>
-  </body>
+<!-- #endregion -->
+
+<!-- #region footer -->
+    <footer>
+        <div id="footer-main">
+            <div class="container">
+                <div id="footer-inner" class="clearfix">
+                    <div class="footer-distributed">
+                        <div class="footer-right">
+                            <p class="footer-links">
+                                <span class="font-montserrat-reg copyright-desktop">BICOLIT.ORG INC. &copy; 2020</span>
+                                <span class="seperator-footer">|</span>
+                                <a href="https://github.com/bicolit/bicolit.github.io/privacy.md" class="font-montserrat-reg">Privacy Policy</a>
+                            </p>
+                        </div>
+                        <div class="footer-left">
+                            <p class="footer-links">
+                                <a href="https://www.facebook.com/bicolit.org"><i class="fa fa-facebook fa-2x"></i></a>
+                                <a href="https://twitter.com/bicolit"><i class="fa fa-twitter fa-2x"></i></a>
+                                <a href="https://www.instagram.com/bicolit_org"><i class="fa fa-instagram fa-2x"></i></a>
+                                <a href="https://t.me/bicolit"><i class="fa fa-telegram fa-2x"></i></a>
+                                <a href="https://medium.com/bicolit"><i class="fa fa-medium fa-2x"></i></a>
+                            </p>
+                            <p class="font-montserrat-reg copyright-mobile">BICOLIT.ORG INC. &copy; 2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!-- #endregion -->
+
+<!-- #region javascripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/js/lib/jquery.sharrre.min.js"></script>
+    <script src="assets/js/lib/isotope/isotope.js"></script>
+    <script src="assets/js/lib/isotope/packery.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- smooth scrolling js-->
+    <script src="assets/js/smoothscroll.js"></script>
+
+    <!-- navigation js-->
+    <script src="assets/js/navigation.js"></script>
+
+    <!-- faq js -->
+    <script>
+    const items = document.querySelectorAll(".accordion a");
+
+    function toggleAccordion(){
+        this.classList.toggle('active');
+        this.nextElementSibling.classList.toggle('active');
+    }
+
+    items.forEach(item => item.addEventListener('click', toggleAccordion));
+    </script>
+<!-- #endregion -->
+</body>
 </html>

@@ -1,0 +1,114 @@
+.footer-distributed {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    padding: 45px 50px;
+}
+
+.footer-distributed .footer-left .fa {
+    color: #161616;
+}
+
+.footer-distributed .footer-left .fa:hover {
+    color: #9ddcff;
+}
+
+.footer-distributed .footer-left p {
+    color: #888888;
+    font-size: 12px;
+    margin: 0;
+}
+
+.footer-distributed .footer-left a {
+    color: #888888;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.footer-distributed p.footer-links {
+    font-size: 16px;
+    color: #888888;
+    margin: 0 0 10px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.footer-distributed p.footer-links a {
+    display: inline-block;
+    line-height: 1.5;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer-distributed .footer-right {
+    float: right;
+    text-align: right;
+}
+
+.footer-distributed .footer-right a {
+    display: inline-block;
+    height: 35px;
+    border-radius: 2px;
+    font-size: 12px;
+    color: #0576b5;
+    text-align: center;
+    line-height: 35px;
+    margin-left: 3px;
+}
+
+.footer-distributed .footer-right p {
+    color: #0576b5;
+    font-size: 12px;
+    margin: 0;
+}
+
+.footer-distributed .footer-right a:hover {
+    color: #ce9410;
+}
+
+.footer-distributed p.footer-links a:hover{
+    color: #ce9410;
+}
+
+.copyright-desktop{
+    color: #161616;
+}
+
+.copyright-mobile{
+    display: none;
+    color: #161616;
+}
+
+.circle-footer{
+    color: #161616;
+    font-size: .75em;
+}
+
+.seperator-footer{
+    color: #ebebeb;
+}
+
+/* Media Queries */
+
+@media (max-width: 600px) {
+    .footer-distributed .footer-left, .footer-distributed .footer-right {
+        text-align: center;
+    }
+    .footer-distributed .footer-right {
+        float: none;
+        margin: 0 auto 20px;
+    }
+    .footer-distributed .footer-left p.footer-links {
+        line-height: 1.8;
+    }
+    .copyright-desktop{
+        display: none !important;
+    }
+    .copyright-mobile{
+        display: block !important;
+    }
+
+    .seperator-footer{
+        display: none !important;
+    }
+}

@@ -1,0 +1,227 @@
+.bicolit {
+    background: url(../../images/bicolit-logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: solid 1px #ffffff;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+}
+
+.eventone {
+    background: url(../../images/bicolit-logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: solid 1px #ffffff;
+    border-radius: 10px;
+    width: 170px;
+    height: 170px;
+}
+
+.missionlogo {
+    background: url(../../images/bicolit-logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: solid 1px #ffffff;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+}
+
+/* #region faq css */
+.accordion a {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 3rem 1rem 1rem;
+    color: #7288a2;
+    font-size: 1.15rem;
+    font-weight: 400;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.accordion a:hover,
+.accordion a:hover::after {
+    cursor: pointer;
+    color: #9ddcff;
+}
+
+.accordion a:hover::after {
+    border: 1px solid #9ddcff;
+}
+
+.accordion a.active {
+    color: #9ddcff;
+    border-bottom: 1px solid #9ddcff;
+}
+
+.accordion a::after {
+    font-family: 'FontAwesome';
+    content: '\f107';
+    position: absolute;
+    float: right;
+    right: 1rem;
+    font-size: 1rem;
+    color: #7288a2;
+    padding: 2px 0px 0px 0.3px;
+    text-align: center;
+    vertical-align:middle;
+    display:table-cell;
+    width: 30px;
+    height: 30px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #7288a2;
+    text-align: center;
+}
+
+.accordion a.active::after {
+    font-family: 'FontAwesome';
+    content: '\f00d';
+    color: #9ddcff;
+    border: 1px solid #9ddcff;
+}
+
+.accordion .content {
+    opacity: 0;
+    padding: 0 1rem;
+    max-height: 0;
+    border-bottom: 1px solid #e5e5e5;
+    overflow: hidden;
+    clear: both;
+    -webkit-transition: all 0.2s ease 0.15s;
+    -o-transition: all 0.2s ease 0.15s;
+    transition: all 0.2s ease 0.15s;
+}
+
+.accordion .content p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.accordion .content.active {
+    opacity: 1;
+    padding: 1rem;
+    max-height: 100%;
+    -webkit-transition: all 0.35s ease 0.15s;
+    -o-transition: all 0.35s ease 0.15s;
+    transition: all 0.35s ease 0.15s;
+}
+/* #endregion */
+
+/* #region our team */
+.team-description {
+    display: inline-block;
+    text-align: left;
+}
+
+@media (max-width:480px) {
+    .team-description {
+        width: 90%;
+    }
+}
+
+.team-description p {
+    margin: 5px 0px 5px !important;
+}
+
+.team-description i {
+    color: #000000;
+    font-size: 5px !important;
+}
+
+.team-description li {
+    list-style: disc outside none;
+}
+
+.team-link {
+    color: #F3AE12;
+}
+
+.team-link:hover {
+    color: #ce9410;
+    text-decoration: none;
+}
+
+.rico { background: url("../../images/founder-rico.jpg"); }
+.harris { background: url("../../images/founder-harris.jpg"); }
+.jason { background: url("../../images/founder-jason.jpg"); }
+.richardg { background: url("../../images/founder-richardg.jpg"); }
+.richardn { background: url("../../images/founder-richardn.jpg"); }
+
+.people {
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    margin-bottom:20px;
+    display:inline-block;
+    border-radius: 10px;
+    width:150px;
+    height:150px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.people:hover {
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
+.partner-logo {
+    padding: 20px;
+}
+
+.featured img {
+    border-radius: 10px;
+    transition: .4s all;
+    -moz-transition: .4s all;
+    -webkit-transition: .4s all;
+    -o-transition: .4s all;
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.featured img:hover {
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
+.mission-text p {
+    font-size: 1.8em;
+    line-height: 1.3em;
+}
+
+p.smaller {
+    font-size: 1em;
+    color:#888888;
+}
+
+.gray_light-block {
+    background-color: #f7f7f7;
+}
+
+/* #endregion */

@@ -1,4 +1,3 @@
-bicolit.github.io
-=================
+# BICOLIT.ORG INC. Website
 
-Bicol IT Organisation's Event Page
+Our nonprofit organization's website.
