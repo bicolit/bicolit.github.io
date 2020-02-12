@@ -61,8 +61,8 @@ Last change: 27/07/2016
     .primary-button{font-size:12px;color:#ffffff;line-height:18px;text-transform:uppercase;display:inline-block;border:none;padding:10px 25px;background-color:#111111;letter-spacing:1.5px;text-decoration:none;cursor:pointer;}
     .primary-button:hover{background-color:#c7c7c7;color:#242424;}
 
-    .secondary-button{font-size:12px;color:#111111;line-height:16px;text-transform:uppercase;display:inline-block;border:none;border-radius: 10px;padding:10px 25px;background-color:#ffffff;letter-spacing:1.5px;text-decoration:none;cursor:pointer;border:1px solid #f3ae12;-webkit-transition:border-color, 0.25s, ease-in-out;transition:border-color, 0.25s, ease-in-out;}
-    .secondary-button:hover{color:#ffffff;background-color:#f3ae12;}
+    .secondary-button{font-size:12px;color:#ffffff !important;line-height:16px;text-transform:uppercase;display:inline-block;border:none;border-radius: 10px;padding:10px 25px;background-color:#f3ae12;letter-spacing:1.5px;text-decoration:none !important;cursor:pointer;border:1px solid #f3ae12;-webkit-transition:border-color, 0.25s, ease-in-out;transition:border-color, 0.25s, ease-in-out;}
+    .secondary-button:hover{color:#000000 !important;background-color:rgba(255, 255, 255, 0.0);}
 
     .rounded-button{border-radius:30px;}
 
