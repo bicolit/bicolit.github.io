@@ -224,4 +224,20 @@ p.smaller {
     background-color: #f7f7f7;
 }
 
+.progress-bar {
+    background-color: whiteSmoke;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+    width: 80%;
+    height: 20px;
+    position: relative;
+    display: block;
+}
+
+.progress-bar > span {
+    background-color: #F3AE12;
+    border-radius: 10px;
+    display: block;
+    text-indent: -9999px;
+}
 /* #endregion */
