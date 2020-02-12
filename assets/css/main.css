@@ -232,6 +232,7 @@ p.smaller {
     height: 20px;
     position: relative;
     display: block;
+    margin-bottom: 40px;
 }
 
 .progress-bar > span {
