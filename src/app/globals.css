@@ -45,6 +45,27 @@
   --border: #e0d6f5;
   --input: #e0d6f5;
   --ring: #8b5cf6;
+
+  /* ── Design page tokens (light) — from Bicol IT.dc.html ──────── */
+  --bg: #f5f1fb;
+  --bg2: #ffffff;
+  --surface: #ffffff;
+  --surface2: #f1eafb;
+  --fg: #1b0b36;
+  --fg2: #4b3a6b;
+  --fg3: #7a6b96;
+  --line: rgba(51, 0, 102, 0.12);
+  --line2: rgba(51, 0, 102, 0.18);
+  --purple: #6633cc;
+  --purple2: #7a3de0;
+  --cyan: #0090c4;
+  --deep: #330066;
+  --logo: #330066;
+  --hero-a: #f2ecfb;
+  --hero-b: #e3d6f6;
+  --card2: #ffffff;
+  --chip: rgba(102, 51, 204, 0.1);
+  --shadow: 0 24px 60px -34px rgba(51, 0, 102, 0.32);
 }
 
 /* ── Dark (design dark palette — primary) ──────────────────────── */
@@ -67,6 +88,27 @@
   --border: rgba(183, 167, 214, 0.14);
   --input: rgba(183, 167, 214, 0.18);
   --ring: #22d8f5;
+
+  /* ── Design page tokens (dark — primary) — from Bicol IT.dc.html */
+  --bg: #0a0416;
+  --bg2: #100726;
+  --surface: #150b2e;
+  --surface2: #1d1140;
+  --fg: #f4effb;
+  --fg2: #b7a7d6;
+  --fg3: #8a79ae;
+  --line: rgba(255, 255, 255, 0.09);
+  --line2: rgba(255, 255, 255, 0.14);
+  --purple: #8b5cf6;
+  --purple2: #6633cc;
+  --cyan: #22d8f5;
+  --deep: #330066;
+  --logo: #ffffff;
+  --hero-a: #090315;
+  --hero-b: #1a0a38;
+  --card2: #140b2c;
+  --chip: rgba(139, 92, 246, 0.16);
+  --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.7);
 }
 
 @theme inline {
@@ -101,5 +143,156 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* ── Design keyframes — ported from Bicol IT.dc.html ────────────── */
+@keyframes livedot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes tPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.22);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(9px, -15px);
+  }
+}
+@keyframes drift2 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-11px, 13px);
+  }
+}
+/* Rotating hero word — slide + fade the active word into view */
+@keyframes wordIn {
+  0% {
+    opacity: 0;
+    transform: translateY(0.7em);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-livedot {
+  animation: livedot 3.2s ease-in-out infinite;
+}
+.animate-floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+/* Scroll-reveal — set by IntersectionObserver via [data-reveal] */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hover states (inline styles can't express :hover) ──────────── */
+.site-navlink:hover {
+  color: var(--fg);
+  background: var(--chip);
+}
+.btn-lift {
+  transition: transform 0.2s ease;
+}
+.btn-lift:hover {
+  transform: translateY(-2px);
+}
+.btn-soft {
+  transition: background 0.2s ease;
+}
+.btn-soft:hover {
+  background: var(--chip);
+}
+.card-lift {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+}
+.team-card:hover {
+  border-color: var(--line2) !important;
+}
+.social-dot {
+  transition: background 0.2s ease;
+}
+.social-dot:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.footer-link {
+  transition: color 0.2s ease;
+}
+.footer-link:hover {
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }
