@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -25,10 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body>
-        <Toaster />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
