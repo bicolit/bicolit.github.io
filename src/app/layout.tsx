@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/config/site";
 import { ThemeProvider } from "@/components/theme-provider";
+import { reader } from "@/lib/content";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -17,20 +17,27 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: siteConfig.description,
-  keywords: siteConfig.keywords,
-  metadataBase: new URL(siteConfig.url),
-  openGraph: {
-    type: "website",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: "og.png",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await reader.singletons.settings.read();
+  const name = settings?.name ?? "Bicol IT";
+  const description = settings?.description ?? "";
+  const url = settings?.url ?? "https://bicolit.org";
+
+  return {
+    title: name,
+    description,
+    keywords: settings?.keywords ? [...settings.keywords] : [],
+    metadataBase: new URL(url),
+    openGraph: {
+      type: "website",
+      url,
+      title: name,
+      description,
+      siteName: name,
+      images: "og.png",
+    },
+  };
+}
 
 export default function RootLayout({
   children,
