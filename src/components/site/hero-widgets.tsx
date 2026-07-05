@@ -51,9 +51,9 @@ export function RotatingWord({ words }: { words: string[] }) {
 
 /* Typed zsh terminal widget. Types each line char-by-char, loops. */
 function lineColor(text: string, index: number): string {
-  if (text.startsWith("[ok]")) return "#5FE39B";
-  if (text.startsWith(">")) return "#C4B0F0";
-  if (index === 0) return "#22D8F5";
+  if (text.startsWith("[ok]")) return "var(--term-ok)";
+  if (text.startsWith(">")) return "var(--term-prompt)";
+  if (index === 0) return "var(--term-head)";
   return "var(--fg2)";
 }
 
@@ -92,7 +92,7 @@ export function Terminal({ lines }: { lines: string[] }) {
           const last = rows[rows.length - 1].d;
           last.insertAdjacentHTML(
             "beforeend",
-            '<span style="display:inline-block; width:8px; height:1.05em; background:#C4B0F0; margin-left:4px; vertical-align:-2px; animation:blink 1s steps(1) infinite;"></span>',
+            '<span style="display:inline-block; width:8px; height:1.05em; background:var(--term-prompt); margin-left:4px; vertical-align:-2px; animation:blink 1s steps(1) infinite;"></span>',
           );
           T(run, 3600);
           return;

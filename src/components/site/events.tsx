@@ -1,5 +1,4 @@
 import { LiveDots, Eyebrow } from "./decor";
-import { PlayIcon } from "./icons";
 import { Reveal } from "./reveal";
 
 export function Events({
@@ -112,42 +111,20 @@ export function Events({
             overflow: "hidden",
             border: "1px solid rgba(255,255,255,.14)",
             aspectRatio: "16 / 8",
-            background:
-              "repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 14px, rgba(255,255,255,.015) 14px 28px)",
-            display: "grid",
-            placeItems: "center",
+            background: "#000",
           }}
         >
-          <div style={{ textAlign: "center" }}>
-            <div
-              className="animate-floaty"
-              style={{
-                width: 76,
-                height: 76,
-                margin: "0 auto 16px",
-                borderRadius: "50%",
-                background: "linear-gradient(120deg,var(--purple),var(--cyan))",
-                display: "grid",
-                placeItems: "center",
-                boxShadow: "0 14px 40px -12px var(--purple)",
-                animationDuration: "4s",
-                color: "#fff",
-              }}
-            >
-              <PlayIcon />
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 12,
-                letterSpacing: ".14em",
-                color: "#B6A6D6",
-                textTransform: "uppercase",
-              }}
-            >
-              [ {title} {year} recap ]
-            </div>
-          </div>
+          <video
+            controls
+            preload="none"
+            playsInline
+            poster="/videos/bitcon-2024-poster.png"
+            aria-label={`${title} ${year} recap video`}
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+          >
+            <source src="/videos/bitcon-2024-recap.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </Reveal>
       </div>
     </section>

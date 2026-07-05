@@ -69,7 +69,7 @@ export function Membership({
           </h2>
         </Reveal>
 
-        <div
+        <Reveal
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
@@ -80,7 +80,7 @@ export function Membership({
           {tiers.map((t, i) => (
             <TierCard key={t.name} tier={t} index={i} membershipUrl={membershipUrl} />
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -116,7 +116,6 @@ function TierCard({ tier, index, membershipUrl }: { tier: Tier; index: number; m
 
   return (
     <div
-      data-reveal
       className="card-lift"
       style={{
         position: "relative",

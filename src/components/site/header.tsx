@@ -28,7 +28,7 @@ export function Header({
     () => false,
   );
 
-  const isDark = !mounted || resolvedTheme === "dark";
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <header
@@ -43,15 +43,7 @@ export function Header({
       }}
     >
       <div
-        style={{
-          maxWidth: 1240,
-          margin: "0 auto",
-          padding: "14px 24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 20,
-        }}
+        className="mx-auto flex max-w-[1443px] items-center justify-between gap-5 px-6 py-[14px]"
       >
         <a
           href="#home"

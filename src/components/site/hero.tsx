@@ -8,15 +8,19 @@ import { Counter, RotatingWord, Terminal } from "./hero-widgets";
 
 const gradientBtn = "linear-gradient(120deg,var(--purple),var(--purple2))";
 
-const PILL_PRESETS: { top: string; right: string; anim: string }[] = [
-  { top: "14%", right: "9%", anim: "floaty 6s ease-in-out infinite" },
-  { top: "27%", right: "24%", anim: "drift 9s ease-in-out .4s infinite" },
-  { top: "19%", right: "38%", anim: "drift2 8s ease-in-out .8s infinite" },
-  { top: "35%", right: "13%", anim: "floaty 7s ease-in-out 1.2s infinite" },
-  { top: "9%", right: "29%", anim: "drift 10s ease-in-out .6s infinite" },
-  { top: "44%", right: "34%", anim: "drift2 9s ease-in-out .3s infinite" },
-  { top: "47%", right: "9%", anim: "floaty 8s ease-in-out .9s infinite" },
-  { top: "24%", right: "44%", anim: "drift 11s ease-in-out 1.4s infinite" },
+// Drifting keyword pills. Each carries its animation plus a responsive
+// position class set — phone (base) / tablet (sm) / desktop (lg) — ported
+// from the design's applyResponsive() scatter maps so pills show on every
+// breakpoint, not just desktop.
+const PILLS: { anim: string; cls: string }[] = [
+  { anim: "floaty 6s ease-in-out infinite", cls: "top-[5%] right-[8%] left-auto sm:top-[4%] sm:right-[6%] sm:left-auto lg:top-[14%] lg:right-[9%] lg:left-auto" },
+  { anim: "drift 9s ease-in-out .4s infinite", cls: "top-[22%] right-[6%] left-auto sm:top-[30%] sm:right-[8%] sm:left-auto lg:top-[27%] lg:right-[24%] lg:left-auto" },
+  { anim: "drift2 8s ease-in-out .8s infinite", cls: "top-[13%] right-[20%] left-auto sm:top-[14%] sm:left-[52%] sm:right-auto lg:top-[19%] lg:right-[38%] lg:left-auto" },
+  { anim: "floaty 7s ease-in-out 1.2s infinite", cls: "top-[44%] right-[8%] left-auto sm:top-[46%] sm:left-[44%] sm:right-auto lg:top-[35%] lg:right-[13%] lg:left-auto" },
+  { anim: "drift 10s ease-in-out .6s infinite", cls: "top-[5%] left-[6%] right-auto sm:top-[6%] sm:left-[5%] sm:right-auto lg:top-[9%] lg:right-[29%] lg:left-auto" },
+  { anim: "drift2 9s ease-in-out .3s infinite", cls: "top-[62%] right-[15%] left-auto sm:top-[66%] sm:left-[48%] sm:right-auto lg:top-[44%] lg:right-[34%] lg:left-auto" },
+  { anim: "floaty 8s ease-in-out .9s infinite", cls: "top-[33%] right-[22%] left-auto sm:top-[34%] sm:left-[60%] sm:right-auto lg:top-[47%] lg:right-[9%] lg:left-auto" },
+  { anim: "drift 11s ease-in-out 1.4s infinite", cls: "top-[24%] left-[8%] right-auto sm:top-[24%] sm:left-[7%] sm:right-auto lg:top-[24%] lg:right-[44%] lg:left-auto" },
 ];
 
 const pillBase: CSSProperties = {
@@ -70,73 +74,80 @@ export function Hero({
         }}
       />
 
-      {/* Logomark — stacked on mobile, absolute on desktop */}
-      <div
-        className="pointer-events-none z-[1] mx-auto mt-11 mb-8 w-[min(300px,62vw)] lg:absolute lg:right-[4%] lg:top-1/2 lg:my-0 lg:w-[min(540px,42vw)] lg:-translate-y-1/2"
-      >
-        <AnimatedLogomark />
-      </div>
+      {/* Drifting keyword pills + live console — both positioned inside a
+          centered 1240 band so they stay within the container on wide screens
+          instead of bleeding out to the viewport's right edge. */}
+      <div className="pointer-events-none absolute inset-0 z-[2]" aria-hidden="true">
+        <div className="relative mx-auto h-full w-full max-w-[1443px] px-6">
+          {tagPills.slice(0, PILLS.length).map((label, i) => (
+            <span
+              key={label}
+              className={PILLS[i].cls}
+              style={{ ...pillBase, animation: PILLS[i].anim }}
+            >
+              {label}
+            </span>
+          ))}
 
-      {/* Drifting keyword pills — desktop only */}
-      <div className="pointer-events-none absolute inset-0 z-[2] hidden lg:block" aria-hidden="true">
-        {tagPills.slice(0, PILL_PRESETS.length).map((label, i) => (
-          <span
-            key={label}
-            style={{ ...pillBase, top: PILL_PRESETS[i].top, right: PILL_PRESETS[i].right, animation: PILL_PRESETS[i].anim }}
-          >
-            {label}
-          </span>
-        ))}
-      </div>
-
-      {/* Live console — desktop only */}
-      <div
-        className="animate-floaty absolute right-[5%] bottom-[8%] z-[2] hidden lg:block"
-        style={{
-          width: "min(372px,33vw)",
-          borderRadius: 14,
-          overflow: "hidden",
-          border: "1px solid var(--line2)",
-          background: "color-mix(in srgb, var(--bg) 60%, transparent)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          boxShadow: "0 34px 74px -32px rgba(0,0,0,.72)",
-          fontFamily: "var(--font-mono)",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 7,
-            padding: "10px 14px",
-            borderBottom: "1px solid var(--line)",
-            background: "color-mix(in srgb, var(--bg) 44%, transparent)",
-          }}
-        >
-          <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#ff5f57" }} />
-          <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#febc2e" }} />
-          <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#28c840" }} />
-          <span
+          {/* Live console — desktop only, anchored to the band's right edge */}
+          <div
+            className="animate-floaty absolute right-6 bottom-[8%] hidden lg:block"
             style={{
-              marginLeft: 8,
-              fontSize: 11,
-              letterSpacing: ".1em",
-              color: "var(--fg3)",
-              textTransform: "uppercase",
+              width: "min(372px,33vw)",
+              borderRadius: 14,
+              overflow: "hidden",
+              border: "1px solid var(--line2)",
+              background: "color-mix(in srgb, var(--bg) 60%, transparent)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              boxShadow: "0 34px 74px -32px rgba(0,0,0,.72)",
+              fontFamily: "var(--font-mono)",
             }}
           >
-            bicol-it — zsh
-          </span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "10px 14px",
+                borderBottom: "1px solid var(--line)",
+                background: "color-mix(in srgb, var(--bg) 44%, transparent)",
+              }}
+            >
+              <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#ff5f57" }} />
+              <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#febc2e" }} />
+              <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#28c840" }} />
+              <span
+                style={{
+                  marginLeft: 8,
+                  fontSize: 11,
+                  letterSpacing: ".1em",
+                  color: "var(--fg3)",
+                  textTransform: "uppercase",
+                }}
+              >
+                bicol-it — zsh
+              </span>
+            </div>
+            <Terminal lines={terminalLines} />
+          </div>
         </div>
-        <Terminal lines={terminalLines} />
       </div>
 
-      {/* Content */}
-      <div
-        className="relative z-[3] mx-auto w-full px-6 py-10 lg:py-20"
-        style={{ maxWidth: 1240 }}
-      >
+      {/* Logomark — own layer at z-[1] so the floating keyword pills (z-[2])
+          drift in front of it. In-flow above the heading on mobile; absolute,
+          right-anchored + vertically centered within the 1443 band on desktop. */}
+      <div className="pointer-events-none relative z-[1] w-full lg:absolute lg:inset-0">
+        <div className="mx-auto w-full max-w-[1443px] px-6 lg:flex lg:h-full lg:items-center">
+          <div className="mx-auto mt-2 mb-9 w-[min(300px,62vw)] lg:mx-0 lg:my-0 lg:ml-auto lg:w-[min(540px,42vw)] lg:-translate-x-[20%] lg:-translate-y-[2%]">
+            <AnimatedLogomark />
+          </div>
+        </div>
+      </div>
+
+      {/* Band — centered, capped on every breakpoint. Text (z-[3]) sits in the
+          left half and stays in front of both the logo and the pills. */}
+      <div className="relative z-[3] mx-auto flex w-full max-w-[1443px] flex-col px-6 py-10 lg:block lg:py-20">
         <div style={{ maxWidth: 760 }}>
           <div
             style={{

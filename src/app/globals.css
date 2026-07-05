@@ -66,6 +66,11 @@
   --card2: #ffffff;
   --chip: rgba(102, 51, 204, 0.1);
   --shadow: 0 24px 60px -34px rgba(51, 0, 102, 0.32);
+
+  /* Terminal text — darkened for readability on the light panel */
+  --term-ok: #0e7c47;
+  --term-prompt: #6b21c9;
+  --term-head: #0e7490;
 }
 
 /* ── Dark (design dark palette — primary) ──────────────────────── */
@@ -109,6 +114,11 @@
   --card2: #140b2c;
   --chip: rgba(139, 92, 246, 0.16);
   --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.7);
+
+  /* Terminal text — bright on the dark panel */
+  --term-ok: #5fe39b;
+  --term-prompt: #c4b0f0;
+  --term-head: #22d8f5;
 }
 
 @theme inline {
