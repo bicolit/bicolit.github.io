@@ -1,3 +1,105 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* next-themes uses the `class` strategy → `.dark` on <html> */
+@custom-variant dark (&:is(.dark *));
+
+/* ── Brand palette (static, dark-first design) ─────────────────────
+   Source: docs/new-website-design/Logo Kit.dc.html                */
+@theme {
+  --color-brand-violet: #8b5cf6; /* gradient start */
+  --color-brand-cyan: #22d8f5; /* gradient end / accent */
+  --color-brand-purple: #6633cc;
+  --color-brand-deep: #330066;
+
+  --color-term-green: #5fe39b; /* terminal "ok" */
+  --color-term-red: #ff5f57; /* terminal traffic lights */
+  --color-term-yellow: #febc2e;
+
+  /* Fonts — CSS vars injected by next/font in layout.tsx */
+  --font-sans: var(--font-display-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-sans), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, "Space Mono", monospace;
+}
+
+/* ── Semantic tokens (shadcn) — Light (design light palette) ────── */
+:root {
+  --radius: 0.625rem;
+
+  --background: #f5f1fb;
+  --foreground: #330066;
+  --card: #ffffff;
+  --card-foreground: #330066;
+  --popover: #ffffff;
+  --popover-foreground: #330066;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #ede6fb;
+  --secondary-foreground: #330066;
+  --muted: #ede6fb;
+  --muted-foreground: #6b5b8e;
+  --accent: #22d8f5;
+  --accent-foreground: #0a0416;
+  --destructive: #ff5f57;
+  --border: #e0d6f5;
+  --input: #e0d6f5;
+  --ring: #8b5cf6;
+}
+
+/* ── Dark (design dark palette — primary) ──────────────────────── */
+.dark {
+  --background: #0a0416;
+  --foreground: #f4effb;
+  --card: #150b2e;
+  --card-foreground: #f4effb;
+  --popover: #150b2e;
+  --popover-foreground: #f4effb;
+  --primary: #8b5cf6;
+  --primary-foreground: #f4effb;
+  --secondary: #170a34;
+  --secondary-foreground: #f4effb;
+  --muted: #170a34;
+  --muted-foreground: #8a79ae;
+  --accent: #22d8f5;
+  --accent-foreground: #0a0416;
+  --destructive: #ff5f57;
+  --border: rgba(183, 167, 214, 0.14);
+  --input: rgba(183, 167, 214, 0.18);
+  --ring: #22d8f5;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
