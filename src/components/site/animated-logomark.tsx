@@ -10,8 +10,18 @@ const prefersReducedMotion = () =>
 
 /* The hero logomark: 20 tiles that "pop" in with a staggered scale, then
    replay on a loop. Faithful reimplementation of startLogoPop() from the
-   prototype (docs/new-website-design/Bicol IT.dc.html). */
-export function AnimatedLogomark() {
+   prototype (docs/new-website-design/Bicol IT.dc.html).
+
+   During the snake game (`playing`) the pop loop stops and the tiles are held
+   static at full size, so the engine can snapshot each tile's box as an edible
+   target. `eatenTiles` fades out tiles the snake has already swallowed. */
+export function AnimatedLogomark({
+  playing = false,
+  eatenTiles,
+}: {
+  playing?: boolean;
+  eatenTiles?: Set<number>;
+} = {}) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -20,10 +30,13 @@ export function AnimatedLogomark() {
     const tiles = Array.from(svg.querySelectorAll<SVGPathElement>("[data-tile]"));
     if (!tiles.length) return;
 
-    if (prefersReducedMotion()) {
+    // Frozen at rest for reduced-motion OR while the game is running — stable
+    // tile boxes the snake engine can target. (Eaten-tile opacity is React's.)
+    if (prefersReducedMotion() || playing) {
       tiles.forEach((el) => {
-        el.style.opacity = "1";
+        el.style.animation = "none";
         el.style.transform = "none";
+        el.style.opacity = "1";
       });
       return;
     }
@@ -50,7 +63,7 @@ export function AnimatedLogomark() {
       window.clearTimeout(start);
       window.clearInterval(loop);
     };
-  }, []);
+  }, [playing]);
 
   return (
     <svg
@@ -74,9 +87,15 @@ export function AnimatedLogomark() {
         {MARK_TILES.map((d, i) => (
           <path
             key={i}
-            data-tile
+            data-tile={i}
             d={d}
-            style={{ transformBox: "fill-box", transformOrigin: "50% 50%" }}
+            style={{
+              transformBox: "fill-box",
+              transformOrigin: "50% 50%",
+              // Only assert opacity once eaten, so the pop animation controls it
+              // otherwise. Eating happens only while frozen (no animation) — no clash.
+              ...(eatenTiles?.has(i) ? { opacity: 0, transition: "opacity .3s ease" } : null),
+            }}
           />
         ))}
       </g>

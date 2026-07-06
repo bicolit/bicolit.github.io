@@ -22,11 +22,13 @@ export function HeroCanvas({
   onModeChange,
   onScoreChange,
   onEatPill,
+  onEatLogo,
   controlRef,
 }: {
   onModeChange?: (mode: HeroGameMode) => void;
   onScoreChange?: (score: number) => void;
   onEatPill?: (index: number) => void;
+  onEatLogo?: (index: number) => void;
   controlRef?: { current: HeroSnakeControl | null };
 } = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -34,9 +36,9 @@ export function HeroCanvas({
   const themeRef = useRef(resolvedTheme === "light" ? "light" : "dark");
 
   // Latest callbacks kept in a ref — the engine effect binds once ([]).
-  const cbRef = useRef({ onModeChange, onScoreChange, onEatPill });
+  const cbRef = useRef({ onModeChange, onScoreChange, onEatPill, onEatLogo });
   useEffect(() => {
-    cbRef.current = { onModeChange, onScoreChange, onEatPill };
+    cbRef.current = { onModeChange, onScoreChange, onEatPill, onEatLogo };
   });
 
   useEffect(() => {
@@ -77,6 +79,70 @@ export function HeroCanvas({
     let pills: { cell: number[]; index: number }[] = [];
     const eatenPillIdx = new Set<number>();
     let desiredDir = [1, 0];
+    // Logomark eaten tile-by-tile: each of the 20 tiles is its own grid-aligned
+    // target rect. Snake clears them one at a time.
+    let logoTiles: { c0: number; r0: number; c1: number; r1: number; index: number }[] = [];
+    const eatenLogoIdx = new Set<number>();
+
+    // --- sound (WebAudio, synthesised; ctx created lazily on first gesture) ---
+    type WindowAudio = Window & { webkitAudioContext?: typeof AudioContext };
+    let audioCtx: AudioContext | null = null;
+    const ensureAudio = () => {
+      const AC = window.AudioContext || (window as WindowAudio).webkitAudioContext;
+      if (!AC) return null;
+      if (!audioCtx) audioCtx = new AC();
+      if (audioCtx.state === "suspended") void audioCtx.resume();
+      return audioCtx;
+    };
+    // Short percussive envelope on one oscillator.
+    const blip = (freq: number, dur = 0.08, type: OscillatorType = "square", vol = 0.05, delay = 0) => {
+      const ac = ensureAudio();
+      if (!ac) return;
+      const t0 = ac.currentTime + delay;
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, t0);
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.exponentialRampToValueAtTime(vol, t0 + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      osc.connect(gain).connect(ac.destination);
+      osc.start(t0);
+      osc.stop(t0 + dur + 0.02);
+    };
+    const sfx = {
+      move: () => blip(200, 0.045, "square", 0.03),
+      eat: () => blip(620, 0.09, "triangle", 0.05),
+      eatBig: () => {
+        blip(660, 0.08, "triangle", 0.055);
+        blip(990, 0.1, "triangle", 0.05, 0.06);
+      },
+      start: () => {
+        blip(392, 0.09, "triangle", 0.045);
+        blip(523, 0.1, "triangle", 0.045, 0.09);
+        blip(659, 0.13, "triangle", 0.045, 0.19);
+      },
+      over: () => {
+        blip(330, 0.12, "sawtooth", 0.045);
+        blip(247, 0.14, "sawtooth", 0.045, 0.11);
+        blip(165, 0.26, "sawtooth", 0.045, 0.24);
+      },
+      // Short combo blip per logo tile — pitch climbs as more are cleared.
+      eatTile: (n = 0) => blip(520 + Math.min(n, 12) * 30, 0.06, "triangle", 0.045),
+      // Triumphant rising arpeggio when the final tile clears the whole mark.
+      eatLogo: () => {
+        blip(523, 0.1, "triangle", 0.05);
+        blip(659, 0.1, "triangle", 0.05, 0.08);
+        blip(784, 0.1, "triangle", 0.05, 0.16);
+        blip(1047, 0.2, "triangle", 0.055, 0.24);
+      },
+    };
+    // Buffer a new heading; chirp only when it actually changes (no spam on held keys).
+    const applySteer = (d: number[]) => {
+      if (mode !== "playing") return;
+      if (d[0] !== desiredDir[0] || d[1] !== desiredDir[1]) sfx.move();
+      desiredDir = d;
+    };
 
     const initSnake = () => {
       const c = 1 + Math.floor(Math.random() * Math.max(1, cols - 2));
@@ -145,6 +211,33 @@ export function HeroCanvas({
       });
     };
 
+    // Map each live logo tile's rect into a grid-aligned target rect. The tiles
+    // are frozen (no pop animation) while playing, so these boxes stay stable.
+    const snapshotLogoTiles = () => {
+      logoTiles = [];
+      const host = document.querySelector<HTMLElement>("[data-hero-logo]");
+      if (!host) return;
+      const rect = canvas.getBoundingClientRect();
+      host.querySelectorAll<SVGGraphicsElement>("[data-tile]").forEach((el) => {
+        const idx = Number(el.dataset.tile);
+        if (Number.isNaN(idx) || eatenLogoIdx.has(idx)) return;
+        const b = el.getBoundingClientRect();
+        if (!b.width || !b.height) return;
+        const c0 = Math.floor((b.left - rect.left) / cell);
+        const r0 = Math.floor((b.top - rect.top) / cell);
+        const c1 = Math.floor((b.right - rect.left) / cell);
+        const r1 = Math.floor((b.bottom - rect.top) / cell);
+        if (c1 < 0 || r1 < 0 || c0 >= cols || r0 >= rows) return; // off-canvas
+        logoTiles.push({
+          c0: Math.max(0, c0),
+          r0: Math.max(0, r0),
+          c1: Math.min(cols - 1, c1),
+          r1: Math.min(rows - 1, r1),
+          index: idx,
+        });
+      });
+    };
+
     const startGame = () => {
       if (!cols || !rows) return;
       mode = "playing";
@@ -160,14 +253,26 @@ export function HeroCanvas({
         [c, r],
       ];
       snake.stepAcc = 0;
+      eatenLogoIdx.clear();
       spawnFood();
       snapshotPills();
+      snapshotLogoTiles();
       cbRef.current.onScoreChange?.(0);
       cbRef.current.onModeChange?.("playing");
+      sfx.start();
+      // Re-snapshot after React has frozen the logo tiles (animation → none).
+      // Two frames so the freeze effect (a post-paint passive effect) has run,
+      // giving target boxes that match the tiles at rest, not mid-pop.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          if (mode === "playing") snapshotLogoTiles();
+        }),
+      );
     };
 
     const die = () => {
       mode = "dead";
+      sfx.over();
       cbRef.current.onModeChange?.("dead");
     };
 
@@ -210,6 +315,7 @@ export function HeroCanvas({
         snake.len += 1;
         score += 10;
         cbRef.current.onScoreChange?.(score);
+        sfx.eat();
         spawnFood();
       }
       for (let i = 0; i < pills.length; i++) {
@@ -219,7 +325,22 @@ export function HeroCanvas({
           eatenPillIdx.add(pills[i].index);
           cbRef.current.onScoreChange?.(score);
           cbRef.current.onEatPill?.(pills[i].index);
+          sfx.eatBig();
           pills.splice(i, 1);
+          break;
+        }
+      }
+      for (let i = 0; i < logoTiles.length; i++) {
+        const lt = logoTiles[i];
+        if (nx >= lt.c0 && nx <= lt.c1 && ny >= lt.r0 && ny <= lt.r1) {
+          eatenLogoIdx.add(lt.index);
+          snake.len += 1;
+          score += 15;
+          cbRef.current.onScoreChange?.(score);
+          cbRef.current.onEatLogo?.(lt.index);
+          logoTiles.splice(i, 1);
+          if (logoTiles.length === 0) sfx.eatLogo(); // whole mark cleared
+          else sfx.eatTile(eatenLogoIdx.size);
           break;
         }
       }
@@ -243,12 +364,20 @@ export function HeroCanvas({
         if (!snake.cells.length || !h || h[0] >= cols || h[1] >= rows) initSnake();
       } else if (mode === "playing") {
         snapshotPills();
+        snapshotLogoTiles();
       }
     };
     resize();
     requestAnimationFrame(resize);
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
+    // ResizeObserver on capable browsers; fall back to window resize on old
+    // ones so the effect never throws (draw loop also self-corrects on rect change).
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(resize);
+      ro.observe(canvas);
+    } else {
+      window.addEventListener("resize", resize);
+    }
 
     const onMove = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect();
@@ -303,7 +432,7 @@ export function HeroCanvas({
       const d = KEYMAP[e.code];
       if (d) {
         e.preventDefault();
-        desiredDir = d;
+        applySteer(d);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -311,9 +440,7 @@ export function HeroCanvas({
     // Expose an imperative steer for the on-screen mobile d-pad.
     if (controlRef) {
       controlRef.current = {
-        setDir: (d: number[]) => {
-          if (mode === "playing") desiredDir = d;
-        },
+        setDir: (d: number[]) => applySteer(d),
       };
     }
 
@@ -411,6 +538,34 @@ export function HeroCanvas({
           ctx.arc(px2, py2, cell * 0.4, 0, Math.PI * 2);
           ctx.stroke();
         }
+        // Pulsing dashed frame around the still-uneaten logo tiles (union box)
+        // so the mark reads as edible; it shrinks as tiles get cleared.
+        if (logoTiles.length) {
+          let c0 = Infinity,
+            r0 = Infinity,
+            c1 = -Infinity,
+            r1 = -Infinity;
+          for (const lt of logoTiles) {
+            if (lt.c0 < c0) c0 = lt.c0;
+            if (lt.r0 < r0) r0 = lt.r0;
+            if (lt.c1 > c1) c1 = lt.c1;
+            if (lt.r1 > r1) r1 = lt.r1;
+          }
+          const lx = c0 * cell,
+            ly = r0 * cell;
+          const lw = (c1 - c0 + 1) * cell,
+            lh = (r1 - r0 + 1) * cell;
+          const lp = (Math.sin(t * 3) + 1) / 2;
+          ctx.globalAlpha = 0.22 + 0.28 * lp;
+          ctx.strokeStyle = pillCol;
+          ctx.lineWidth = 2;
+          ctx.setLineDash([7, 7]);
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(lx + 3, ly + 3, lw - 6, lh - 6, 12);
+          else ctx.rect(lx + 3, ly + 3, lw - 6, lh - 6);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
       }
 
       if (!reduce && snake.cells.length) {
@@ -442,12 +597,14 @@ export function HeroCanvas({
 
     return () => {
       cancelAnimationFrame(raf);
-      ro.disconnect();
+      ro?.disconnect();
+      window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseout", onOut);
       window.removeEventListener("click", onClick);
       window.removeEventListener("keydown", onKey);
       if (controlRef) controlRef.current = null;
+      audioCtx?.close();
     };
   }, [controlRef]);
 

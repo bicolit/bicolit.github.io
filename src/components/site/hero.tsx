@@ -1,13 +1,27 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { AnimatedLogomark } from "./animated-logomark";
 import { HeroCanvas, type HeroGameMode, type HeroSnakeControl } from "./hero-canvas";
 import { Counter, RotatingWord, Terminal } from "./hero-widgets";
 
 const gradientBtn = "linear-gradient(120deg,var(--purple),var(--purple2))";
+
+// Personal-best is kept client-side only (no account needed). localStorage may
+// be unavailable (private mode, blocked cookies) — every access is guarded.
+const HISCORE_KEY = "bit-snake-hiscore";
+
+const readHiscore = (): number => {
+  if (typeof window === "undefined") return 0;
+  try {
+    const v = Number(localStorage.getItem(HISCORE_KEY));
+    return Number.isFinite(v) && v > 0 ? v : 0;
+  } catch {
+    return 0;
+  }
+};
 
 // Drifting keyword pills. Each carries its animation plus a responsive
 // position class set — phone (base) / tablet (sm) / desktop (lg) — ported
@@ -58,16 +72,56 @@ export function Hero({
   // text fade + pill consumption that live in this component's DOM.
   const [mode, setMode] = useState<HeroGameMode>("ambient");
   const [score, setScore] = useState(0);
+  // Lazy init reads the stored best on the client only. It's safe from hydration
+  // mismatch because the best is never rendered until the game runs (the overlay
+  // is hidden while ambient), which is always after the first paint.
+  const [highScore, setHighScore] = useState(() => readHiscore());
+  const [newBest, setNewBest] = useState(false);
   const [eatenPills, setEatenPills] = useState<Set<number>>(() => new Set());
+  const [eatenLogoTiles, setEatenLogoTiles] = useState<Set<number>>(() => new Set());
   const playing = mode !== "ambient";
   const controlRef = useRef<HeroSnakeControl | null>(null);
+  // Refs mirror the latest score/best so the mode-change handler (fired by the
+  // canvas engine) can compare them without stale closures or extra effects.
+  const scoreRef = useRef(0);
+  const highRef = useRef(highScore);
+  useEffect(() => {
+    highRef.current = highScore;
+  }, [highScore]);
+
+  const handleScore = useCallback((s: number) => {
+    scoreRef.current = s;
+    setScore(s);
+  }, []);
 
   const handleMode = useCallback((m: HeroGameMode) => {
     setMode(m);
-    if (m !== "dead") {
+    if (m === "dead") {
+      // Commit a new personal best if this run beat it.
+      if (scoreRef.current > highRef.current) {
+        highRef.current = scoreRef.current;
+        setHighScore(scoreRef.current);
+        setNewBest(true);
+        try {
+          localStorage.setItem(HISCORE_KEY, String(scoreRef.current));
+        } catch {
+          /* storage unavailable — best stays session-only */
+        }
+      }
+    } else {
+      scoreRef.current = 0;
       setScore(0);
+      setNewBest(false);
       setEatenPills(new Set());
+      setEatenLogoTiles(new Set());
     }
+  }, []);
+  const handleEatLogo = useCallback((i: number) => {
+    setEatenLogoTiles((prev) => {
+      const next = new Set(prev);
+      next.add(i);
+      return next;
+    });
   }, []);
   const handleEatPill = useCallback((i: number) => {
     setEatenPills((prev) => {
@@ -88,8 +142,9 @@ export function Hero({
     >
       <HeroCanvas
         onModeChange={handleMode}
-        onScoreChange={setScore}
+        onScoreChange={handleScore}
         onEatPill={handleEatPill}
+        onEatLogo={handleEatLogo}
         controlRef={controlRef}
       />
       <div
@@ -179,8 +234,14 @@ export function Hero({
           right-anchored + vertically centered within the 1443 band on desktop. */}
       <div className="pointer-events-none relative z-[1] w-full lg:absolute lg:inset-0">
         <div className="mx-auto w-full max-w-[1443px] px-6 lg:flex lg:h-full lg:items-center">
-          <div className="mx-auto mt-2 mb-9 w-[min(300px,62vw)] lg:mx-0 lg:my-0 lg:ml-auto lg:w-[min(540px,42vw)] lg:-translate-x-[20%] lg:-translate-y-[2%]">
-            <AnimatedLogomark />
+          {/* `data-hero-logo` marks the host the snake engine scans for tiles.
+              While playing, the logomark freezes so each tile is a stable,
+              individually-edible target. */}
+          <div
+            data-hero-logo
+            className="mx-auto mt-2 mb-9 w-[min(300px,62vw)] lg:mx-0 lg:my-0 lg:ml-auto lg:w-[min(540px,42vw)] lg:-translate-x-[20%] lg:-translate-y-[2%]"
+          >
+            <AnimatedLogomark playing={playing} eatenTiles={eatenLogoTiles} />
           </div>
         </div>
       </div>
@@ -347,6 +408,11 @@ export function Hero({
               <div style={{ fontSize: 14, fontWeight: 700, color: "var(--fg)" }}>
                 SCORE {score}
               </div>
+              {highScore > 0 && (
+                <div style={{ fontSize: 11, marginTop: 3, color: "var(--fg2)" }}>
+                  BEST {highScore}
+                </div>
+              )}
               <div style={{ fontSize: 11, marginTop: 4, color: "var(--fg3)" }}>
                 arrows / WASD · Esc to exit
               </div>
@@ -381,6 +447,25 @@ export function Hero({
               <div style={{ fontSize: 15, margin: "10px 0 4px", color: "var(--fg2)" }}>
                 Score {score}
               </div>
+              {newBest ? (
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    margin: "0 0 8px",
+                    color: "var(--cyan)",
+                    letterSpacing: ".04em",
+                  }}
+                >
+                  ★ NEW BEST!
+                </div>
+              ) : (
+                highScore > 0 && (
+                  <div style={{ fontSize: 13, margin: "0 0 8px", color: "var(--fg3)" }}>
+                    Best {highScore}
+                  </div>
+                )
+              )}
               <div style={{ fontSize: 12, color: "var(--fg3)" }}>
                 click or Space to retry · Esc to exit
               </div>
@@ -417,14 +502,15 @@ function DPad({ control }: { control: React.RefObject<HeroSnakeControl | null> }
   };
   return (
     <div
-      className="lg:hidden"
+      // `grid` here (not inline) so the `lg:hidden` media query can override it —
+      // an inline display would win over the class and leak the pad onto desktop.
+      className="grid lg:hidden"
       style={{
         position: "absolute",
         bottom: 22,
         left: "50%",
         transform: "translateX(-50%)",
         pointerEvents: "auto",
-        display: "grid",
         gridTemplateColumns: "repeat(3, 56px)",
         gridTemplateRows: "repeat(3, 56px)",
         gap: 0,
