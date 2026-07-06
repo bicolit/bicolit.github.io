@@ -1,9 +1,10 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { AnimatedLogomark } from "./animated-logomark";
-import { HeroCanvas } from "./hero-canvas";
+import { HeroCanvas, type HeroGameMode, type HeroSnakeControl } from "./hero-canvas";
 import { Counter, RotatingWord, Terminal } from "./hero-widgets";
 
 const gradientBtn = "linear-gradient(120deg,var(--purple),var(--purple2))";
@@ -53,6 +54,29 @@ export function Hero({
   membershipUrl: string;
   established: number;
 }) {
+  // Mini snake game state — lifted here so the canvas (engine) can drive the
+  // text fade + pill consumption that live in this component's DOM.
+  const [mode, setMode] = useState<HeroGameMode>("ambient");
+  const [score, setScore] = useState(0);
+  const [eatenPills, setEatenPills] = useState<Set<number>>(() => new Set());
+  const playing = mode !== "ambient";
+  const controlRef = useRef<HeroSnakeControl | null>(null);
+
+  const handleMode = useCallback((m: HeroGameMode) => {
+    setMode(m);
+    if (m !== "dead") {
+      setScore(0);
+      setEatenPills(new Set());
+    }
+  }, []);
+  const handleEatPill = useCallback((i: number) => {
+    setEatenPills((prev) => {
+      const next = new Set(prev);
+      next.add(i);
+      return next;
+    });
+  }, []);
+
   return (
     <section
       id="home"
@@ -62,7 +86,12 @@ export function Hero({
         background: "linear-gradient(150deg,var(--hero-a),var(--hero-b))",
       }}
     >
-      <HeroCanvas />
+      <HeroCanvas
+        onModeChange={handleMode}
+        onScoreChange={setScore}
+        onEatPill={handleEatPill}
+        controlRef={controlRef}
+      />
       <div
         aria-hidden="true"
         style={{
@@ -82,8 +111,17 @@ export function Hero({
           {tagPills.slice(0, PILLS.length).map((label, i) => (
             <span
               key={label}
+              data-hero-pill={i}
               className={PILLS[i].cls}
-              style={{ ...pillBase, animation: PILLS[i].anim }}
+              style={{
+                ...pillBase,
+                // Freeze drift while playing so the snapshotted grid cell stays
+                // aligned with what the player sees.
+                animation: playing ? "none" : PILLS[i].anim,
+                opacity: eatenPills.has(i) ? 0 : 1,
+                transform: eatenPills.has(i) ? "scale(.4)" : undefined,
+                transition: "opacity .35s ease, transform .35s ease",
+              }}
             >
               {label}
             </span>
@@ -102,6 +140,8 @@ export function Hero({
               WebkitBackdropFilter: "blur(12px)",
               boxShadow: "0 34px 74px -32px rgba(0,0,0,.72)",
               fontFamily: "var(--font-mono)",
+              opacity: playing ? 0 : 1,
+              transition: "opacity .4s ease",
             }}
           >
             <div
@@ -146,8 +186,16 @@ export function Hero({
       </div>
 
       {/* Band — centered, capped on every breakpoint. Text (z-[3]) sits in the
-          left half and stays in front of both the logo and the pills. */}
-      <div className="relative z-[3] mx-auto flex w-full max-w-[1443px] flex-col px-6 py-10 lg:block lg:py-20">
+          left half and stays in front of both the logo and the pills. Fades out
+          while the snake game runs; kept mounted so crawlers still read it. */}
+      <div
+        className="relative z-[3] mx-auto flex w-full max-w-[1443px] flex-col px-6 py-10 lg:block lg:py-20"
+        style={{
+          opacity: playing ? 0 : 1,
+          pointerEvents: playing ? "none" : "auto",
+          transition: "opacity .4s ease",
+        }}
+      >
         <div style={{ maxWidth: 760 }}>
           <div
             style={{
@@ -264,7 +312,165 @@ export function Hero({
           </div>
         </div>
       </div>
+
+      {/* Game overlay — hint / score / game-over. pointer-events:none so clicks
+          fall through to the canvas's window listener (retry / start). */}
+      <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden="true">
+        {mode === "ambient" && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: 18,
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              letterSpacing: ".08em",
+              color: "var(--fg3)",
+              opacity: 0.7,
+            }}
+          >
+            ▸ click anywhere to play
+          </div>
+        )}
+        {mode === "playing" && (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                top: 16,
+                right: 20,
+                textAlign: "right",
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--fg)" }}>
+                SCORE {score}
+              </div>
+              <div style={{ fontSize: 11, marginTop: 4, color: "var(--fg3)" }}>
+                arrows / WASD · Esc to exit
+              </div>
+            </div>
+            <DPad control={controlRef} />
+          </>
+        )}
+        {mode === "dead" && (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "var(--font-mono)",
+                padding: "26px 34px",
+                borderRadius: 16,
+                border: "1px solid var(--line2)",
+                background: "color-mix(in srgb, var(--bg) 70%, transparent)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                boxShadow: "0 34px 74px -32px rgba(0,0,0,.72)",
+              }}
+            >
+              <div style={{ fontSize: 22, fontWeight: 800, color: "var(--fg)" }}>GAME OVER</div>
+              <div style={{ fontSize: 15, margin: "10px 0 4px", color: "var(--fg2)" }}>
+                Score {score}
+              </div>
+              <div style={{ fontSize: 12, color: "var(--fg3)" }}>
+                click or Space to retry · Esc to exit
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </section>
+  );
+}
+
+// On-screen direction pad for touch devices — hidden on desktop (keyboard).
+// One connected cross: the four arms share edges with a central hub (no gaps),
+// so the whole thing reads as a single pad and is easy to thumb on a phone.
+function DPad({ control }: { control: React.RefObject<HeroSnakeControl | null> }) {
+  const press = (d: number[]) => (e: React.PointerEvent) => {
+    e.preventDefault();
+    control.current?.setDir(d);
+  };
+  const arm: CSSProperties = {
+    display: "grid",
+    placeItems: "center",
+    border: "1px solid var(--line2)",
+    background: "color-mix(in srgb, var(--bg) 62%, transparent)",
+    backdropFilter: "blur(6px)",
+    WebkitBackdropFilter: "blur(6px)",
+    color: "var(--fg)",
+    fontSize: 22,
+    lineHeight: 1,
+    touchAction: "none",
+    userSelect: "none",
+    WebkitUserSelect: "none",
+    WebkitTapHighlightColor: "color-mix(in srgb, var(--purple) 45%, transparent)",
+  };
+  return (
+    <div
+      className="lg:hidden"
+      style={{
+        position: "absolute",
+        bottom: 22,
+        left: "50%",
+        transform: "translateX(-50%)",
+        pointerEvents: "auto",
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 56px)",
+        gridTemplateRows: "repeat(3, 56px)",
+        gap: 0,
+        filter: "drop-shadow(0 18px 30px rgba(0,0,0,.45))",
+      }}
+    >
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label="Up"
+        style={{ ...arm, gridColumn: 2, gridRow: 1, borderRadius: "14px 14px 0 0", borderBottom: "none" }}
+        onPointerDown={press([0, -1])}
+      >
+        ↑
+      </button>
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label="Left"
+        style={{ ...arm, gridColumn: 1, gridRow: 2, borderRadius: "14px 0 0 14px", borderRight: "none" }}
+        onPointerDown={press([-1, 0])}
+      >
+        ←
+      </button>
+      <div style={{ ...arm, gridColumn: 2, gridRow: 2, borderRadius: 0, pointerEvents: "none" }}>
+        <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--fg3)" }} />
+      </div>
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label="Right"
+        style={{ ...arm, gridColumn: 3, gridRow: 2, borderRadius: "0 14px 14px 0", borderLeft: "none" }}
+        onPointerDown={press([1, 0])}
+      >
+        →
+      </button>
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label="Down"
+        style={{ ...arm, gridColumn: 2, gridRow: 3, borderRadius: "0 0 14px 14px", borderTop: "none" }}
+        onPointerDown={press([0, 1])}
+      >
+        ↓
+      </button>
+    </div>
   );
 }
 

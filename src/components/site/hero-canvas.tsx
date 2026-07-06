@@ -3,14 +3,41 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
+export type HeroGameMode = "ambient" | "playing" | "dead";
+
+/* Imperative handle for on-screen (mobile) controls — lets the d-pad steer the
+   snake without synthesising keyboard events. */
+export type HeroSnakeControl = { setDir: (d: number[]) => void };
+
 /* The living hero background: a pulsing rounded-square grid with a cursor
    glow and a small "box-eating" snake that glides over the tiles. Faithful
    reimplementation of startGrid() from docs/new-website-design/Bicol IT.dc.html.
-   Snake + motion respect prefers-reduced-motion. */
-export function HeroCanvas() {
+
+   Clicking the ambient snake starts a playable mini snake game: the hero text
+   fades, the floating keyword pills (tagged [data-hero-pill]) become edible,
+   food dots spawn, and the snake dies on the play-area edges. All game input is
+   an opt-in enhancement — the idle path is unchanged and the whole thing is
+   skipped under prefers-reduced-motion, keeping SSR markup crawlable. */
+export function HeroCanvas({
+  onModeChange,
+  onScoreChange,
+  onEatPill,
+  controlRef,
+}: {
+  onModeChange?: (mode: HeroGameMode) => void;
+  onScoreChange?: (score: number) => void;
+  onEatPill?: (index: number) => void;
+  controlRef?: { current: HeroSnakeControl | null };
+} = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
   const themeRef = useRef(resolvedTheme === "light" ? "light" : "dark");
+
+  // Latest callbacks kept in a ref — the engine effect binds once ([]).
+  const cbRef = useRef({ onModeChange, onScoreChange, onEatPill });
+  useEffect(() => {
+    cbRef.current = { onModeChange, onScoreChange, onEatPill };
+  });
 
   useEffect(() => {
     themeRef.current = resolvedTheme === "light" ? "light" : "dark";
@@ -32,7 +59,7 @@ export function HeroCanvas() {
 
     const reduce = !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-    // --- box-eating snake ---
+    // --- shared snake state ---
     const eaten = new Map<string, number>();
     const RESPAWN = 1500;
     const dirs4 = [
@@ -42,6 +69,15 @@ export function HeroCanvas() {
       [0, -1],
     ];
     const snake = { cells: [] as number[][], dir: [1, 0], stepAcc: 0, stepMs: 95, len: 8 };
+
+    // --- game state ---
+    let mode: HeroGameMode = "ambient";
+    let score = 0;
+    let food: number[] | null = null;
+    let pills: { cell: number[]; index: number }[] = [];
+    const eatenPillIdx = new Set<number>();
+    let desiredDir = [1, 0];
+
     const initSnake = () => {
       const c = 1 + Math.floor(Math.random() * Math.max(1, cols - 2));
       const r = 1 + Math.floor(Math.random() * Math.max(1, rows - 2));
@@ -49,7 +85,9 @@ export function HeroCanvas() {
       snake.cells = [[c, r]];
       snake.stepAcc = 0;
     };
-    const stepSnake = (now: number) => {
+
+    // Autonomous wander used in ambient mode (original behaviour).
+    const stepAmbient = (now: number) => {
       if (!cols || !rows || !snake.cells.length) return;
       const head = snake.cells[snake.cells.length - 1];
       const [dx, dy] = snake.dir;
@@ -76,6 +114,119 @@ export function HeroCanvas() {
       while (snake.cells.length > snake.len) snake.cells.shift();
     };
 
+    const emptyCell = () => {
+      const occ = new Set(snake.cells.map((c) => c[0] + "," + c[1]));
+      pills.forEach((p) => occ.add(p.cell[0] + "," + p.cell[1]));
+      for (let tries = 0; tries < 80; tries++) {
+        const c = 1 + Math.floor(Math.random() * Math.max(1, cols - 2));
+        const r = 1 + Math.floor(Math.random() * Math.max(1, rows - 2));
+        if (!occ.has(c + "," + r)) return [c, r];
+      }
+      return [1, 1];
+    };
+    const spawnFood = () => {
+      food = emptyCell();
+    };
+
+    // Map the live pill DOM rects into grid cells so the snake can eat them.
+    const snapshotPills = () => {
+      pills = [];
+      const rect = canvas.getBoundingClientRect();
+      const els = document.querySelectorAll<HTMLElement>("[data-hero-pill]");
+      els.forEach((el) => {
+        const idx = Number(el.dataset.heroPill);
+        if (eatenPillIdx.has(idx)) return;
+        const b = el.getBoundingClientRect();
+        const cx = b.left + b.width / 2 - rect.left;
+        const cy = b.top + b.height / 2 - rect.top;
+        const c = Math.floor(cx / cell);
+        const r = Math.floor(cy / cell);
+        if (c >= 0 && c < cols && r >= 0 && r < rows) pills.push({ cell: [c, r], index: idx });
+      });
+    };
+
+    const startGame = () => {
+      if (!cols || !rows) return;
+      mode = "playing";
+      score = 0;
+      eatenPillIdx.clear();
+      const c = Math.floor(cols / 2),
+        r = Math.floor(rows / 2);
+      snake.len = 6;
+      snake.dir = [1, 0];
+      desiredDir = [1, 0];
+      snake.cells = [
+        [c - 1, r],
+        [c, r],
+      ];
+      snake.stepAcc = 0;
+      spawnFood();
+      snapshotPills();
+      cbRef.current.onScoreChange?.(0);
+      cbRef.current.onModeChange?.("playing");
+    };
+
+    const die = () => {
+      mode = "dead";
+      cbRef.current.onModeChange?.("dead");
+    };
+
+    const exitGame = () => {
+      mode = "ambient";
+      food = null;
+      pills = [];
+      snake.len = 8;
+      initSnake();
+      cbRef.current.onModeChange?.("ambient");
+    };
+
+    const stepPlay = (now: number) => {
+      if (!cols || !rows || !snake.cells.length) return;
+      const head = snake.cells[snake.cells.length - 1];
+
+      // Apply buffered direction, blocking a 180° reversal into the neck.
+      if (!(desiredDir[0] === -snake.dir[0] && desiredDir[1] === -snake.dir[1])) {
+        snake.dir = desiredDir.slice();
+      }
+
+      const nx = head[0] + snake.dir[0],
+        ny = head[1] + snake.dir[1];
+
+      if (nx < 0 || nx >= cols || ny < 0 || ny >= rows) {
+        die();
+        return;
+      }
+      for (let i = 1; i < snake.cells.length; i++) {
+        if (snake.cells[i][0] === nx && snake.cells[i][1] === ny) {
+          die();
+          return;
+        }
+      }
+
+      snake.cells.push([nx, ny]);
+      eaten.set(nx + "," + ny, now);
+
+      if (food && food[0] === nx && food[1] === ny) {
+        snake.len += 1;
+        score += 10;
+        cbRef.current.onScoreChange?.(score);
+        spawnFood();
+      }
+      for (let i = 0; i < pills.length; i++) {
+        if (pills[i].cell[0] === nx && pills[i].cell[1] === ny) {
+          snake.len += 2;
+          score += 25;
+          eatenPillIdx.add(pills[i].index);
+          cbRef.current.onScoreChange?.(score);
+          cbRef.current.onEatPill?.(pills[i].index);
+          pills.splice(i, 1);
+          break;
+        }
+      }
+
+      while (snake.cells.length > snake.len) snake.cells.shift();
+    };
+
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
       W = rect.width;
@@ -87,13 +238,18 @@ export function HeroCanvas() {
       cell = Math.max(20, Math.round(Math.min(W, H) / 20));
       cols = Math.ceil(W / cell) + 1;
       rows = Math.ceil(H / cell) + 1;
-      const h = snake.cells[snake.cells.length - 1];
-      if (!snake.cells.length || !h || h[0] >= cols || h[1] >= rows) initSnake();
+      if (mode === "ambient") {
+        const h = snake.cells[snake.cells.length - 1];
+        if (!snake.cells.length || !h || h[0] >= cols || h[1] >= rows) initSnake();
+      } else if (mode === "playing") {
+        snapshotPills();
+      }
     };
     resize();
     requestAnimationFrame(resize);
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
+
     const onMove = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect();
       mouse.x = e.clientX - r.left;
@@ -105,6 +261,61 @@ export function HeroCanvas() {
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseout", onOut);
+
+    const onClick = (e: MouseEvent) => {
+      if (reduce) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left,
+        y = e.clientY - rect.top;
+      if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
+      if (mode === "playing") return;
+      // Ignore clicks on real controls (links, buttons, the d-pad) so they keep
+      // working; any other click on the hero background starts / retries.
+      const target = e.target as HTMLElement | null;
+      if (target?.closest("a,button,input,textarea,select,[role='button']")) return;
+      startGame();
+    };
+    window.addEventListener("click", onClick);
+
+    const KEYMAP: Record<string, number[]> = {
+      ArrowUp: [0, -1],
+      KeyW: [0, -1],
+      ArrowDown: [0, 1],
+      KeyS: [0, 1],
+      ArrowLeft: [-1, 0],
+      KeyA: [-1, 0],
+      ArrowRight: [1, 0],
+      KeyD: [1, 0],
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (reduce) return;
+      if (mode !== "playing") {
+        if (mode === "dead" && (e.code === "Space" || e.code === "Enter")) {
+          e.preventDefault();
+          startGame();
+        }
+        return;
+      }
+      if (e.code === "Escape") {
+        exitGame();
+        return;
+      }
+      const d = KEYMAP[e.code];
+      if (d) {
+        e.preventDefault();
+        desiredDir = d;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+
+    // Expose an imperative steer for the on-screen mobile d-pad.
+    if (controlRef) {
+      controlRef.current = {
+        setDir: (d: number[]) => {
+          if (mode === "playing") desiredDir = d;
+        },
+      };
+    }
 
     const PAL = {
       dark: { a: [139, 92, 246], b: [34, 216, 245], baseA: 0.05, baseB: 0.16, faintMax: 0.42 },
@@ -131,12 +342,13 @@ export function HeroCanvas() {
       const now = ts;
       const dt = lastTs ? Math.min(60, ts - lastTs) : 16;
       lastTs = ts;
-      if (!reduce) {
+      if (!reduce && mode !== "dead") {
         snake.stepAcc += dt;
         let guard = 0;
         while (snake.stepAcc >= snake.stepMs && guard++ < 4) {
           snake.stepAcc -= snake.stepMs;
-          stepSnake(now);
+          if (mode === "playing") stepPlay(now);
+          else stepAmbient(now);
         }
       }
       const theme = themeRef.current;
@@ -170,8 +382,39 @@ export function HeroCanvas() {
           rr(c * cell + off, r * cell + off, size, Math.max(1.5, size * 0.24));
         }
       }
+
+      // Game markers — food dot + pill targets — drawn beneath the snake.
+      if (mode === "playing") {
+        const foodCol = theme === "light" ? "rgb(0,144,196)" : "rgb(34,216,245)";
+        if (food) {
+          const fx = food[0] * cell + cell / 2,
+            fy = food[1] * cell + cell / 2;
+          const pulse = (Math.sin(t * 4) + 1) / 2;
+          const rad = cell * 0.22 * (0.8 + 0.3 * pulse);
+          ctx.globalAlpha = 0.95;
+          ctx.fillStyle = foodCol;
+          ctx.shadowColor = foodCol;
+          ctx.shadowBlur = cell * 0.8;
+          ctx.beginPath();
+          ctx.arc(fx, fy, rad, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+        const pillCol = theme === "light" ? "rgb(102,51,204)" : "rgb(139,92,246)";
+        ctx.strokeStyle = pillCol;
+        ctx.lineWidth = 2;
+        for (const pl of pills) {
+          const px2 = pl.cell[0] * cell + cell / 2,
+            py2 = pl.cell[1] * cell + cell / 2;
+          ctx.globalAlpha = 0.5;
+          ctx.beginPath();
+          ctx.arc(px2, py2, cell * 0.4, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+
       if (!reduce && snake.cells.length) {
-        const frac = snake.stepAcc / snake.stepMs;
+        const frac = mode === "dead" ? 1 : snake.stepAcc / snake.stepMs;
         const n = snake.cells.length;
         const col = theme === "light" ? p.a : p.b;
         for (let i = 0; i < n; i++) {
@@ -202,8 +445,11 @@ export function HeroCanvas() {
       ro.disconnect();
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseout", onOut);
+      window.removeEventListener("click", onClick);
+      window.removeEventListener("keydown", onKey);
+      if (controlRef) controlRef.current = null;
     };
-  }, []);
+  }, [controlRef]);
 
   return (
     <canvas
