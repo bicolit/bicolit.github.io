@@ -1,0 +1,61 @@
+name: Deploy to GitHub Pages
+
+# Manual only: run from the Actions tab. The "Run workflow" dropdown lets you
+# pick WHICH BRANCH gets built and published to bicolit.org.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One live deploy at a time.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable corepack (pnpm)
+        run: corepack enable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Keystatic admin routes are dev-only and use a POST route handler, which
+      # is invalid in a static export. Remove them from this throwaway checkout
+      # before building (your committed files are untouched).
+      - name: Strip Keystatic admin routes
+        run: rm -rf "src/app/keystatic" "src/app/api/keystatic"
+
+      - name: Build static export
+        run: pnpm build
+
+      - name: Add CNAME and disable Jekyll
+        run: |
+          cp CNAME out/CNAME
+          touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
