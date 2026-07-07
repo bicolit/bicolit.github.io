@@ -363,10 +363,10 @@ export function Hero({
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 36 }}>
+            {/* Membership sign-up is deactivated (Coming soon), so this points
+                to the in-page #membership section instead of the external form. */}
             <a
-              href={membershipUrl}
-              target="_blank"
-              rel="noopener"
+              href="#membership"
               className="btn-lift"
               style={{
                 padding: "15px 28px",
