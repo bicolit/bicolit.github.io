@@ -118,7 +118,7 @@ export function Events({
             controls
             preload="none"
             playsInline
-            poster="/videos/bitcon-2024-poster.png"
+            poster="/videos/bitcon-2024-poster.webp"
             aria-label={`${title} ${year} recap video`}
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
           >
