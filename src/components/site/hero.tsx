@@ -83,6 +83,7 @@ export function Hero({
   const [eatenLogoTiles, setEatenLogoTiles] = useState<Set<number>>(() => new Set());
   const playing = mode !== "ambient";
   const controlRef = useRef<HeroSnakeControl | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   // Refs mirror the latest score/best so the mode-change handler (fired by the
   // canvas engine) can compare them without stale closures or extra effects.
   const scoreRef = useRef(0);
@@ -97,17 +98,34 @@ export function Hero({
   useEffect(() => {
     if (mode !== "starting") return;
     let n = 3;
+    controlRef.current?.tick(n); // pip for the "3" shown as the overlay opens
     const id = window.setInterval(() => {
       n -= 1;
       if (n <= 0) {
         window.clearInterval(id);
-        controlRef.current?.start();
+        controlRef.current?.start(); // start jingle plays inside the engine
       } else {
         setCount(n);
+        controlRef.current?.tick(n); // pip in sync with "2" then "1"
       }
     }, 1000);
     return () => window.clearInterval(id);
   }, [mode]);
+
+  // Full-screen mobile play. While the game runs (any non-ambient mode) on
+  // phones/tablets the hero becomes a fixed, viewport-filling overlay (see
+  // #home[data-playing] in globals.css). Lock page scroll here so nothing peeks
+  // behind it and the board can't be scrolled out of thumb reach. Desktop
+  // (keyboard play, normal in-page layout) is left untouched.
+  useEffect(() => {
+    if (!playing || typeof window === "undefined") return;
+    if (!window.matchMedia("(max-width: 1023.98px)").matches) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [playing]);
 
   const handleScore = useCallback((s: number) => {
     scoreRef.current = s;
@@ -154,10 +172,13 @@ export function Hero({
 
   return (
     <section
+      ref={sectionRef}
       id="home"
-      className="relative flex flex-col justify-center overflow-hidden lg:block"
+      // Presence of this attr flips the hero to a full-screen overlay on mobile
+      // while the game runs (styled in globals.css). Absent = normal layout.
+      data-playing={playing || undefined}
+      className="relative flex flex-col justify-center overflow-hidden pt-16 lg:block lg:pt-0"
       style={{
-        minHeight: "min(92vh,860px)",
         background: "linear-gradient(150deg,var(--hero-a),var(--hero-b))",
       }}
     >
@@ -398,6 +419,38 @@ export function Hero({
       {/* Game overlay — hint / score / game-over. pointer-events:none so clicks
           fall through to the canvas's window listener (retry / start). */}
       <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden="true">
+        {/* Touch exit — mobile only. The fullscreen game overlay covers the
+            sticky header, so this is a phone player's only way back out (desktop
+            uses Esc). Hidden on desktop where the header stays reachable. */}
+        {playing && (
+          <button
+            type="button"
+            onClick={() => controlRef.current?.exit()}
+            aria-label="Exit game"
+            className="lg:hidden"
+            style={{
+              position: "absolute",
+              top: 14,
+              left: 16,
+              width: 40,
+              height: 40,
+              display: "grid",
+              placeItems: "center",
+              pointerEvents: "auto",
+              borderRadius: 12,
+              border: "1px solid var(--line2)",
+              background: "color-mix(in srgb, var(--bg) 62%, transparent)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              color: "var(--fg)",
+              fontSize: 18,
+              lineHeight: 1,
+              cursor: "pointer",
+            }}
+          >
+            ✕
+          </button>
+        )}
         {mode === "ambient" && (
           <div
             style={{

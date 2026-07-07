@@ -333,6 +333,26 @@
   color: #fff;
 }
 
+/* Hero sizing. Normally a capped, near-viewport band. On phones/tablets, while
+   the snake game runs ([data-playing] is set by the Hero), it's promoted to a
+   true full-screen overlay so the board, score and d-pad all fit the visible
+   viewport with no scrolling — `dvh` tracks the address-bar-adjusted height and
+   the z-index clears the sticky header (z-50). Desktop (keyboard play) keeps
+   the normal in-page layout. */
+#home {
+  min-height: min(92vh, 860px);
+}
+@media (max-width: 1023.98px) {
+  #home[data-playing] {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    height: 100vh; /* fallback for browsers without dvh */
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

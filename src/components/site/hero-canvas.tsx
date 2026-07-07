@@ -8,7 +8,13 @@ export type HeroGameMode = "ambient" | "starting" | "playing" | "dead";
 /* Imperative handle for on-screen (mobile) controls + the countdown gate.
    `setDir` lets the d-pad steer without synthesising keyboard events; `start`
    is called by React when the "GAME START" countdown finishes to begin play. */
-export type HeroSnakeControl = { setDir: (d: number[]) => void; start: () => void };
+export type HeroSnakeControl = {
+  setDir: (d: number[]) => void;
+  start: () => void;
+  exit: () => void;
+  /* Countdown pip, called by React on each "GAME START" tick (n = 3 → 2 → 1). */
+  tick: (n: number) => void;
+};
 
 /* The living hero background: a pulsing rounded-square grid with a cursor
    glow and a small "box-eating" snake that glides over the tiles. Faithful
@@ -128,6 +134,9 @@ export function HeroCanvas({
         blip(247, 0.14, "sawtooth", 0.045, 0.11);
         blip(165, 0.26, "sawtooth", 0.045, 0.24);
       },
+      // "GAME START" countdown pip. 3 & 2 are a steady mid tick; the final 1
+      // jumps up a step so "go" feels imminent before the start jingle lands.
+      countdown: (n = 3) => blip(n <= 1 ? 880 : 660, 0.11, "square", 0.05),
       // Short combo blip per logo tile — pitch climbs as more are cleared.
       eatTile: (n = 0) => blip(520 + Math.min(n, 12) * 30, 0.06, "triangle", 0.045),
       // Triumphant rising arpeggio when the final tile clears the whole mark.
@@ -243,6 +252,9 @@ export function HeroCanvas({
     // "GAME START" 3-2-1 overlay, which calls startGame() when it hits zero.
     const beginCountdown = () => {
       if (!cols || !rows) return;
+      // Unlock/resume the audio context on this originating user gesture so the
+      // countdown pips — fired later from a timer, not a gesture — may sound.
+      ensureAudio();
       mode = "starting";
       cbRef.current.onModeChange?.("starting");
     };
@@ -255,10 +267,11 @@ export function HeroCanvas({
       const c = Math.floor(cols / 2),
         r = Math.floor(rows / 2);
       snake.len = 6;
-      snake.dir = [1, 0];
-      desiredDir = [1, 0];
+      // Head downward on start (tail above it), so play begins moving down.
+      snake.dir = [0, 1];
+      desiredDir = [0, 1];
       snake.cells = [
-        [c - 1, r],
+        [c, r - 1],
         [c, r],
       ];
       snake.stepAcc = 0;
@@ -451,6 +464,8 @@ export function HeroCanvas({
       controlRef.current = {
         setDir: (d: number[]) => applySteer(d),
         start: () => startGame(),
+        exit: () => exitGame(),
+        tick: (n: number) => sfx.countdown(n),
       };
     }
 
