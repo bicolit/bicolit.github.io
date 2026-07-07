@@ -1,0 +1,31 @@
+tiers:
+  - name: Basic
+    price: Free
+    cadence: For every member of the community
+    features:
+      - Recognized as part of the official Bicol IT community
+      - Bicol IT user id / badge
+      - Online group access and privilege
+    cta: Get started
+    popular: false
+  - name: Growth
+    price: ₱249
+    oldPrice: ₱399
+    cadence: One-time · best value
+    features:
+      - All Basic access
+      - Discounts on paid events
+      - Bicol IT identification card
+    cta: Choose Growth
+    popular: true
+  - name: Pro
+    price: ₱499
+    oldPrice: ₱799
+    cadence: One-time · full access
+    features:
+      - All Growth access
+      - Vouchers to access paid events
+      - Exclusive access to paid events and merch
+      - Bicol IT Pro group membership
+    cta: Go Pro
+    popular: false

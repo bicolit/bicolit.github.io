@@ -1,23 +1,36 @@
-# BICOLIT.ORG INC. Website
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Our nonprofit organization's website.
+## Getting Started
 
-## Donate with Crypto
+First, run the development server:
 
-### Donate with Bitcoin (BTC)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-<img src="images/bc1q4362cdaddcxsufcxx5qg4vdlrt4jluem2psp5s.png" alt="Donate with Bitcoin" width="300">
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-**bc1q4362cdaddcxsufcxx5qg4vdlrt4jluem2psp5s**
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### Donate with Ether (ETH), SparkPoint (SRK), and other ERC-20 tokens
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-<img src="images/0x7b7289d6361FDD92CdA6A1BBf21D6B914A4227FB.png" alt="Donate with Ether" width="300">
+## Learn More
 
-**0x7b7289d6361FDD92CdA6A1BBf21D6B914A4227FB**
+To learn more about Next.js, take a look at the following resources:
 
-### Donate with Binance Coin (BNB)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-<img src="images/bnb1lens6xwe0th3msp8zmfatpxfa94k5g57q90ae8.png" alt="Donate with Binance Coin" width="300">
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-**bnb1lens6xwe0th3msp8zmfatpxfa94k5g57q90ae8**
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
