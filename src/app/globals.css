@@ -342,7 +342,11 @@
 #home {
   min-height: min(92vh, 860px);
 }
-@media (max-width: 1023.98px) {
+/* Fullscreen game overlay — on narrow widths OR any touch-primary device
+   (phones AND tablets, which can be ≥1024px wide in landscape). Keying off touch
+   here, not width alone, is what lets landscape tablets get the fullscreen board
+   + on-screen controls instead of the keyboard-only desktop path. */
+@media (max-width: 1023.98px), (hover: none) and (pointer: coarse) {
   #home[data-playing] {
     position: fixed;
     inset: 0;
@@ -358,6 +362,16 @@
   #home[data-playing] [data-hero-copy] {
     position: absolute;
     inset: 0;
+  }
+}
+
+/* On-screen game controls (D-pad, exit) show on touch devices and hide only on
+   true desktops — wide AND a fine, hovering pointer (mouse/trackpad). This is the
+   exact complement of the overlay query above, so controls appear whenever the
+   fullscreen board does. !important beats the buttons' inline display. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  [data-touch-only] {
+    display: none !important;
   }
 }
 

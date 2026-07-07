@@ -119,7 +119,10 @@ export function Hero({
   // (keyboard play, normal in-page layout) is left untouched.
   useEffect(() => {
     if (!playing || typeof window === "undefined") return;
-    if (!window.matchMedia("(max-width: 1023.98px)").matches) return;
+    // Match the fullscreen-overlay condition in globals.css: narrow widths OR
+    // any touch-primary device (phones + tablets), so tablets lock scroll too.
+    if (!window.matchMedia("(max-width: 1023.98px), (hover: none) and (pointer: coarse)").matches)
+      return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
@@ -420,15 +423,16 @@ export function Hero({
       {/* Game overlay — hint / score / game-over. pointer-events:none so clicks
           fall through to the canvas's window listener (retry / start). */}
       <div className="pointer-events-none absolute inset-0 z-[4]" aria-hidden="true">
-        {/* Touch exit — mobile only. The fullscreen game overlay covers the
-            sticky header, so this is a phone player's only way back out (desktop
-            uses Esc). Hidden on desktop where the header stays reachable. */}
+        {/* Touch exit — touch devices only. The fullscreen game overlay covers
+            the sticky header, so this is a touch player's only way back out
+            (desktop uses Esc). `data-touch-only` hides it on pointer devices
+            where the header stays reachable — see globals.css. */}
         {playing && (
           <button
             type="button"
             onClick={() => controlRef.current?.exit()}
             aria-label="Exit game"
-            className="lg:hidden"
+            data-touch-only
             style={{
               position: "absolute",
               top: 14,
@@ -440,7 +444,7 @@ export function Hero({
               pointerEvents: "auto",
               borderRadius: 12,
               border: "1px solid var(--line2)",
-              background: "color-mix(in srgb, var(--bg) 62%, transparent)",
+              background: "color-mix(in srgb, var(--bg) 34%, transparent)",
               backdropFilter: "blur(6px)",
               WebkitBackdropFilter: "blur(6px)",
               color: "var(--fg)",
@@ -611,7 +615,7 @@ function DPad({ control }: { control: React.RefObject<HeroSnakeControl | null> }
     display: "grid",
     placeItems: "center",
     border: "1px solid var(--line2)",
-    background: "color-mix(in srgb, var(--bg) 62%, transparent)",
+    background: "color-mix(in srgb, var(--bg) 34%, transparent)",
     backdropFilter: "blur(6px)",
     WebkitBackdropFilter: "blur(6px)",
     color: "var(--fg)",
@@ -624,14 +628,15 @@ function DPad({ control }: { control: React.RefObject<HeroSnakeControl | null> }
   };
   return (
     <div
-      // `grid` here (not inline) so the `lg:hidden` media query can override it —
-      // an inline display would win over the class and leak the pad onto desktop.
-      className="grid lg:hidden"
+      // `grid` sets the pad's display; the desktop-only `[data-touch-only]` rule
+      // (globals.css) hides it with !important on pointer devices. Anchored
+      // bottom-right so it sits under the right thumb on phones and tablets.
+      className="grid"
+      data-touch-only
       style={{
         position: "absolute",
         bottom: 22,
-        left: "50%",
-        transform: "translateX(-50%)",
+        right: 22,
         pointerEvents: "auto",
         gridTemplateColumns: "repeat(3, 56px)",
         gridTemplateRows: "repeat(3, 56px)",
