@@ -351,6 +351,14 @@
     height: 100dvh;
     min-height: 100dvh;
   }
+  /* While the game runs, the hero copy is faded out but still occupies its full
+     height in the centered flex column — that tall invisible block pushed the
+     logomark up past the top edge, where overflow-hidden cropped it. Drop it out
+     of the flow so only the logomark drives the vertical centering. */
+  #home[data-playing] [data-hero-copy] {
+    position: absolute;
+    inset: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

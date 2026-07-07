@@ -292,6 +292,7 @@ export function Hero({
           left half and stays in front of both the logo and the pills. Fades out
           while the snake game runs; kept mounted so crawlers still read it. */}
       <div
+        data-hero-copy
         className="relative z-[3] mx-auto flex w-full max-w-[1443px] flex-col px-6 py-10 lg:block lg:py-20"
         style={{
           opacity: playing ? 0 : 1,
