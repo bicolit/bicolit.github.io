@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  @keyframes tScale { from{opacity:0;transform:scale(.12)} to{opacity:1;transform:scale(1)} }
+  @keyframes tUp    { from{opacity:0;transform:translateY(20px) scale(.4)} to{opacity:1;transform:translateY(0) scale(1)} }
+  @keyframes tPop   { 0%{opacity:0;transform:scale(0)} 65%{opacity:1;transform:scale(1.22)} 100%{transform:scale(1)} }
+  @keyframes kdot   { 0%,100%{opacity:1} 50%{opacity:.3} }
+</style>
+</helmet>
+<div style="background:#0A0416; color:#F4EFFB; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; min-height:100vh; overflow-x:hidden;">
+
+  <!-- ===== HEADER ===== -->
+  <header style="display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 40px; border-bottom:1px solid rgba(255,255,255,.09); position:sticky; top:0; z-index:20; background:rgba(10,4,22,.82); backdrop-filter:blur(14px);">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <svg viewBox="0 0 79.45 39.43" width="42" height="21" style="display:block;"><path fill="#F4EFFB" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg>
+      <span style="font-family:'Space Mono',monospace; font-weight:700; font-size:15px; letter-spacing:.02em;">BICOL&#8202;IT</span>
+    </div>
+    <span style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#8A79AE;">Logo Kit</span>
+  </header>
+
+  <!-- ===== HERO / ANIMATED MARK ===== -->
+  <section style="max-width:1100px; margin:0 auto; padding:clamp(48px,7vw,96px) 40px 40px;">
+    <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.18em; color:#22D8F5; text-transform:uppercase; margin-bottom:18px;">/ The mark</div>
+    <h1 style="margin:0 0 10px; font-weight:800; letter-spacing:-.02em; line-height:1.02; font-size:clamp(32px,5vw,58px);">Bicol IT logomark, rebuilt tile&#8209;by&#8209;tile.</h1>
+    <p style="margin:0 0 40px; max-width:60ch; font-size:16px; line-height:1.6; color:#B7A7D6;">Pixel&#8209;accurate SVG recreation of the original mark &mdash; 14 rounded tiles and 6 arrow tips laid on an 8&times;4 grid. Every tile is an individually addressable element, so the whole mark can be animated tile&#8209;by&#8209;tile.</p>
+
+    <div style="position:relative; border:1px solid rgba(255,255,255,.12); border-radius:24px; background:linear-gradient(150deg,#0d0620,#170a34); overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); background-size:44px 44px; -webkit-mask-image:radial-gradient(120% 100% at 50% 40%,#000,transparent 72%); mask-image:radial-gradient(120% 100% at 50% 40%,#000,transparent 72%);"></div>
+      <div style="position:relative; display:grid; place-items:center; padding:clamp(48px,8vw,96px) 24px;">
+        <svg viewBox="0 0 79.45 39.43" width="520" style="width:min(520px,74vw); height:auto; overflow:visible; filter:drop-shadow(0 24px 50px rgba(139,92,246,.28));">
+          <defs>
+            <linearGradient id="bitGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8B5CF6"></stop>
+              <stop offset="1" stop-color="#22D8F5"></stop>
+            </linearGradient>
+          </defs>
+          <g id="heroGroup" fill="url(#bitGrad)">
+            <path id="p0"  data-tile data-idx="0"  data-col="3" data-row="2" style="transform-box:fill-box; transform-origin:50% 50%;" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92Z"></path>
+            <path id="p1"  data-tile data-idx="1"  data-col="2" data-row="3" style="transform-box:fill-box; transform-origin:50% 50%;" d="M28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p2"  data-tile data-idx="2"  data-col="1" data-row="2" style="transform-box:fill-box; transform-origin:50% 50%;" d="M18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p3"  data-tile data-idx="3"  data-col="3" data-row="3" style="transform-box:fill-box; transform-origin:50% 50%;" d="M38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95Z"></path>
+            <path id="p4"  data-tile data-idx="4"  data-col="2" data-row="1" style="transform-box:fill-box; transform-origin:50% 50%;" d="M28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p5"  data-tile data-idx="5"  data-col="1" data-row="1" style="transform-box:fill-box; transform-origin:50% 50%;" d="M18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p6"  data-tile data-idx="6"  data-col="1" data-row="3" style="transform-box:fill-box; transform-origin:50% 50%;" d="M18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57Z"></path>
+            <path id="p7"  data-tile data-idx="7"  data-col="3" data-row="1" style="transform-box:fill-box; transform-origin:50% 50%;" d="M30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56Z"></path>
+            <path id="p8"  data-tile data-idx="8"  data-col="0" data-row="1" style="transform-box:fill-box; transform-origin:50% 50%;" d="M8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p9"  data-tile data-idx="9"  data-col="1" data-row="0" style="transform-box:fill-box; transform-origin:50% 50%;" d="M10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56Z"></path>
+            <path id="p10" data-tile data-idx="10" data-col="6" data-row="1" style="transform-box:fill-box; transform-origin:50% 50%;" d="M68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p11" data-tile data-idx="11" data-col="7" data-row="3" style="transform-box:fill-box; transform-origin:50% 50%;" d="M78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p12" data-tile data-idx="12" data-col="4" data-row="3" style="transform-box:fill-box; transform-origin:50% 50%;" d="M48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p13" data-tile data-idx="13" data-col="7" data-row="1" style="transform-box:fill-box; transform-origin:50% 50%;" d="M78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p14" data-tile data-idx="14" data-col="6" data-row="3" style="transform-box:fill-box; transform-origin:50% 50%;" d="M68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55Z"></path>
+            <path id="p15" data-tile data-idx="15" data-col="6" data-row="2" style="transform-box:fill-box; transform-origin:50% 50%;" d="M68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p16" data-tile data-idx="16" data-col="6" data-row="0" style="transform-box:fill-box; transform-origin:50% 50%;" d="M60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56Z"></path>
+            <path id="p17" data-tile data-idx="17" data-col="4" data-row="2" style="transform-box:fill-box; transform-origin:50% 50%;" d="M48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p18" data-tile data-idx="18" data-col="4" data-row="0" style="transform-box:fill-box; transform-origin:50% 50%;" d="M48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92Z"></path>
+            <path id="p19" data-tile data-idx="19" data-col="5" data-row="1" style="transform-box:fill-box; transform-origin:50% 50%;" d="M58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+          </g>
+        </svg>
+      </div>
+
+      <!-- controls -->
+      <div style="position:relative; border-top:1px solid rgba(255,255,255,.1); padding:18px 22px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; background:rgba(0,0,0,.18);">
+        <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8A79AE; margin-right:2px;">Intro</span>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button data-animbtn="assemble" onClick="{{ selAssemble }}" style="padding:9px 16px; border-radius:999px; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.02em; border:1px solid transparent; background:transparent; color:#B7A7D6; transition:all .2s;">Assemble</button>
+          <button data-animbtn="cascade" onClick="{{ selCascade }}" style="padding:9px 16px; border-radius:999px; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.02em; border:1px solid rgba(255,255,255,.14); background:transparent; color:#B7A7D6; transition:all .2s;">Cascade</button>
+          <button data-animbtn="wave" onClick="{{ selWave }}" style="padding:9px 16px; border-radius:999px; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.02em; border:1px solid rgba(255,255,255,.14); background:transparent; color:#B7A7D6; transition:all .2s;">Wave</button>
+          <button data-animbtn="pop" onClick="{{ selPop }}" style="padding:9px 16px; border-radius:999px; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.02em; border:1px solid rgba(255,255,255,.14); background:transparent; color:#B7A7D6; transition:all .2s;">Pop</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; margin-left:auto;">
+          <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8A79AE;">Speed</span>
+          <input type="range" min="0.5" max="2" step="0.1" value="1" onInput="{{ setSpeed }}" data-speedslider style="width:120px; accent-color:#8B5CF6;">
+          <span data-speedval style="font-family:'Space Mono',monospace; font-size:12px; color:#B7A7D6; width:34px;">1.0x</span>
+          <button onClick="{{ replay }}" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:.02em; color:#fff; border:none; background:linear-gradient(120deg,#8B5CF6,#6633CC); box-shadow:0 10px 26px -12px #8B5CF6;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            Replay
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VARIANTS ===== -->
+  <section style="max-width:1100px; margin:0 auto; padding:40px 40px;">
+    <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.18em; color:#22D8F5; text-transform:uppercase; margin-bottom:22px;">/ Color variants</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px;">
+
+      <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden;">
+        <div style="display:grid; place-items:center; padding:44px 24px; background:#0A0416;"><svg viewBox="0 0 79.45 39.43" width="150" style="height:auto;"><defs><linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B5CF6"></stop><stop offset="1" stop-color="#22D8F5"></stop></linearGradient></defs><path fill="url(#cardGrad)" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg></div>
+        <div style="padding:14px 18px; border-top:1px solid rgba(255,255,255,.1); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#B7A7D6;">Gradient / dark<br><span style="color:#8A79AE;">#8B5CF6 &rarr; #22D8F5</span></div>
+      </div>
+
+      <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden;">
+        <div style="display:grid; place-items:center; padding:44px 24px; background:linear-gradient(150deg,#8B5CF6,#6633CC);"><svg viewBox="0 0 79.45 39.43" width="150" style="height:auto;"><path fill="#FFFFFF" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg></div>
+        <div style="padding:14px 18px; border-top:1px solid rgba(255,255,255,.1); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#B7A7D6;">Reversed white<br><span style="color:#8A79AE;">#FFFFFF on purple</span></div>
+      </div>
+
+      <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden;">
+        <div style="display:grid; place-items:center; padding:44px 24px; background:#F5F1FB;"><svg viewBox="0 0 79.45 39.43" width="150" style="height:auto;"><path fill="#330066" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg></div>
+        <div style="padding:14px 18px; border-top:1px solid rgba(255,255,255,.1); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#B7A7D6;">Deep purple / light<br><span style="color:#8A79AE;">#330066 on #F5F1FB</span></div>
+      </div>
+
+      <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden;">
+        <div style="display:grid; place-items:center; padding:44px 24px; background:#0A0416;"><svg viewBox="0 0 79.45 39.43" width="150" style="height:auto;"><path fill="#22D8F5" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg></div>
+        <div style="padding:14px 18px; border-top:1px solid rgba(255,255,255,.1); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#B7A7D6;">Mono cyan<br><span style="color:#8A79AE;">#22D8F5</span></div>
+      </div>
+
+      <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden;">
+        <div style="display:grid; place-items:center; padding:44px 24px; background:#FFFFFF;"><svg viewBox="0 0 79.45 39.43" width="150" style="height:auto;"><path fill="#150B2E" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg></div>
+        <div style="padding:14px 18px; border-top:1px solid rgba(255,255,255,.1); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#B7A7D6;">Near&#8209;black / white<br><span style="color:#8A79AE;">#150B2E on #FFFFFF</span></div>
+      </div>
+
+      <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden;">
+        <div style="display:grid; place-items:center; padding:44px 24px; background:#150B2E;"><svg viewBox="0 0 79.45 39.43" width="150" style="height:auto;"><path fill="#8B5CF6" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg></div>
+        <div style="padding:14px 18px; border-top:1px solid rgba(255,255,255,.1); font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; color:#B7A7D6;">Mono purple<br><span style="color:#8A79AE;">#8B5CF6</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CONSTRUCTION + SIZES ===== -->
+  <section style="max-width:1100px; margin:0 auto; padding:40px 40px 96px; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; align-items:start;">
+
+    <!-- grid construction -->
+    <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:28px; background:#0d0620;">
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#22D8F5; margin-bottom:18px;">Construction &mdash; 8&times;4 grid</div>
+      <svg viewBox="-1 -1 81.45 41.43" width="100%" style="height:auto; display:block;">
+        <g stroke="rgba(255,255,255,.12)" stroke-width="0.25">
+          <line x1="0" y1="0" x2="79.45" y2="0"></line>
+          <line x1="0" y1="10.01" x2="79.45" y2="10.01"></line>
+          <line x1="0" y1="20.01" x2="79.45" y2="20.01"></line>
+          <line x1="0" y1="30.02" x2="79.45" y2="30.02"></line>
+          <line x1="0" y1="39.43" x2="79.45" y2="39.43"></line>
+        </g>
+        <path fill="rgba(139,92,246,.18)" stroke="#22D8F5" stroke-width="0.25" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path>
+      </svg>
+      <p style="margin:16px 0 0; font-size:13.5px; line-height:1.6; color:#B7A7D6;">Every tile snaps to a 10&#8209;unit cell (viewBox <span style="font-family:'Space Mono',monospace;">79.45&times;39.43</span>). Tiles carry <span style="font-family:'Space Mono',monospace; color:#F4EFFB;">data-col</span> / <span style="font-family:'Space Mono',monospace; color:#F4EFFB;">data-row</span> so you can drive delays by position.</p>
+    </div>
+
+    <!-- clear space + min sizes -->
+    <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:28px; background:#0d0620;">
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#22D8F5; margin-bottom:18px;">Clear space</div>
+      <div style="display:grid; place-items:center; padding:22px; border:1px dashed rgba(255,255,255,.28); border-radius:12px; background:#0A0416;">
+        <div style="padding:26px;"><svg viewBox="0 0 79.45 39.43" width="220" style="width:min(220px,60vw); height:auto;"><path fill="#F4EFFB" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg></div>
+      </div>
+      <p style="margin:14px 0 22px; font-size:13.5px; line-height:1.6; color:#B7A7D6;">Keep clear space of at least one grid unit (&frac18; of the mark height) on every side.</p>
+
+      <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#22D8F5; margin-bottom:16px;">Minimum sizes</div>
+      <div style="display:flex; align-items:flex-end; gap:26px; flex-wrap:wrap;">
+        <div style="text-align:center;"><svg viewBox="0 0 79.45 39.43" height="24" style="width:auto; display:block; margin:0 auto 8px;"><path fill="#F4EFFB" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg><span style="font-family:'Space Mono',monospace; font-size:10px; color:#8A79AE;">24px &middot; digital</span></div>
+        <div style="text-align:center;"><svg viewBox="0 0 79.45 39.43" height="40" style="width:auto; display:block; margin:0 auto 8px;"><path fill="#F4EFFB" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg><span style="font-family:'Space Mono',monospace; font-size:10px; color:#8A79AE;">40px &middot; UI</span></div>
+        <div style="text-align:center;"><svg viewBox="0 0 79.45 39.43" height="64" style="width:auto; display:block; margin:0 auto 8px;"><path fill="#F4EFFB" d="M39.43,20.93v7.58c0,.51-.41.92-.92.92h-7.58c-.51,0-.92-.41-.92-.92v-7.58c0-.51.41-.92.92-.92h7.58c.51,0,.92.41.92.92ZM28.51,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM38.11,29.94h-7.52c-.31,0-.56.25-.56.56v7.52c0,.49.6.74.95.39l7.52-7.52c.35-.35.1-.95-.39-.95ZM28.51,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.5,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM18.79,29.94h-7.48c-.51,0-.76.61-.4.97l7.48,7.48c.36.36.97.1.97-.4v-7.48c0-.31-.25-.57-.57-.57ZM30.57,19.42h7.52c.5,0,.74-.6.39-.95l-7.52-7.52c-.35-.35-.95-.1-.95.39v7.52c0,.31.25.56.56.56ZM8.5,10.01H.92c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM10.54,9.52h7.51c.5,0,.75-.6.39-.95L10.94,1.06c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM68.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,30.02h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM78.53,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM68.84,30.12h-7.52c-.49,0-.74.6-.39.95l7.52,7.52c.35.35.95.1.95-.39v-7.52c0-.31-.25-.55-.55-.55ZM68.53,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM60.57,9.52h7.51c.5,0,.75-.6.39-.95l-7.51-7.51c-.35-.35-.95-.1-.95.39v7.51c0,.31.25.56.56.56ZM48.52,20.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92ZM48.52,0h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92V.92c0-.51-.41-.92-.92-.92ZM58.52,10.01h-7.58c-.51,0-.92.41-.92.92v7.58c0,.51.41.92.92.92h7.58c.51,0,.92-.41.92-.92v-7.58c0-.51-.41-.92-.92-.92Z"></path></svg><span style="font-family:'Space Mono',monospace; font-size:10px; color:#8A79AE;">64px &middot; print</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== ANIMATION NOTES ===== -->
+  <section style="max-width:1100px; margin:0 auto; padding:0 40px 110px;">
+    <div style="border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:32px; background:linear-gradient(150deg,#0d0620,#160a32);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+        <span style="width:8px; height:8px; border-radius:2px; background:#22D8F5; animation:kdot 2.2s ease-in-out infinite;"></span>
+        <span style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#22D8F5;">Animation&#8209;ready</span>
+      </div>
+      <p style="margin:0 0 14px; max-width:70ch; font-size:15px; line-height:1.7; color:#B7A7D6;">The animated mark is 20 individual tiles, <span style="font-family:'Space Mono',monospace; color:#F4EFFB;">#p0</span>&ndash;<span style="font-family:'Space Mono',monospace; color:#F4EFFB;">#p19</span> &mdash; 14 rounded squares and 6 arrow tips. Each carries <span style="font-family:'Space Mono',monospace; color:#F4EFFB;">data-col</span>, <span style="font-family:'Space Mono',monospace; color:#F4EFFB;">data-row</span> and <span style="font-family:'Space Mono',monospace; color:#F4EFFB;">data-idx</span>, plus <span style="font-family:'Space Mono',monospace; color:#F4EFFB;">transform-box:fill-box</span> so scales and rotations pivot around each tile&rsquo;s own centre.</p>
+      <p style="margin:0; max-width:70ch; font-size:15px; line-height:1.7; color:#B7A7D6;">The four presets above (assemble, cascade, wave, pop) are just different ways of mapping those grid coordinates to an animation delay &mdash; a starting point for the motion work. The static placements (variants, sizes) reuse the mark as a single combined path.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;introAnim&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;assemble&quot;,&quot;cascade&quot;,&quot;wave&quot;,&quot;pop&quot;],&quot;default&quot;:&quot;assemble&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Animation&quot;,&quot;label&quot;:&quot;Intro animation&quot;},&quot;speed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0.5,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;default&quot;:1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animation&quot;,&quot;label&quot;:&quot;Speed&quot;},&quot;heroFill&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;gradient&quot;,&quot;white&quot;,&quot;cyan&quot;,&quot;purple&quot;],&quot;default&quot;:&quot;gradient&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Mark&quot;,&quot;label&quot;:&quot;Hero fill&quot;}}">
+class Component extends DCLogic {
+  componentDidMount(){
+    this.anim = (['assemble','cascade','wave','pop'].includes(this.props.introAnim)) ? this.props.introAnim : 'assemble';
+    this.speed = (typeof this.props.speed === 'number' && this.props.speed > 0) ? this.props.speed : 1;
+
+    const fillMap = { gradient:'url(#bitGrad)', white:'#F4EFFB', cyan:'#22D8F5', purple:'#8B5CF6' };
+    const g = document.getElementById('heroGroup');
+    if(g && fillMap[this.props.heroFill]) g.setAttribute('fill', fillMap[this.props.heroFill]);
+
+    const sl = document.querySelector('[data-speedslider]');
+    if(sl) sl.value = String(this.speed);
+    const lab = document.querySelector('[data-speedval]');
+    if(lab) lab.textContent = this.speed.toFixed(1) + 'x';
+
+    this.markActive(this.anim);
+
+    // Only prime + play the intro when the page is actually visible; otherwise the
+    // mark stays in its natural (fully visible) resting state and animates on first view.
+    if(document.visibilityState === 'visible'){
+      this._t = setTimeout(() => this.play(), 220);
+    } else {
+      this._onVis = () => {
+        if(document.visibilityState === 'visible'){
+          document.removeEventListener('visibilitychange', this._onVis);
+          this.play();
+        }
+      };
+      document.addEventListener('visibilitychange', this._onVis);
+    }
+  }
+  componentWillUnmount(){
+    clearTimeout(this._t); clearTimeout(this._fb);
+    if(this._onVis) document.removeEventListener('visibilitychange', this._onVis);
+  }
+
+  markActive(k){
+    document.querySelectorAll('[data-animbtn]').forEach(b => {
+      const on = b.dataset.animbtn === k;
+      b.style.background = on ? 'linear-gradient(120deg,#8B5CF6,#6633CC)' : 'transparent';
+      b.style.color = on ? '#fff' : '#B7A7D6';
+      b.style.borderColor = on ? 'transparent' : 'rgba(255,255,255,.14)';
+    });
+  }
+
+  play(){
+    const speed = this.speed || 1;
+    const cfg = {
+      assemble: { kf:'tScale', dur:.55, delay:(c,r)=> Math.hypot((c-3.5)/1.6, (r-1.5)) * 0.085 },
+      cascade:  { kf:'tUp',    dur:.5,  delay:(c,r)=> c*0.08 + r*0.02 },
+      wave:     { kf:'tScale', dur:.5,  delay:(c,r)=> (c + (3-r)) * 0.045 },
+      pop:      { kf:'tPop',   dur:.5,  delay:()=> Math.random() * 0.65 },
+    }[this.anim] || { kf:'tScale', dur:.55, delay:()=>0 };
+
+    const tiles = Array.from(document.querySelectorAll('[data-tile]'));
+    tiles.forEach(el => { el.style.animation = 'none'; el.style.opacity = ''; el.style.transform = ''; });
+    void document.body.offsetWidth; // single reflow
+    let maxEnd = 0;
+    tiles.forEach(el => {
+      const c = +el.dataset.col, r = +el.dataset.row;
+      const d = cfg.delay(c, r) / speed;
+      const dur = cfg.dur / speed;
+      maxEnd = Math.max(maxEnd, d + dur);
+      el.style.animation = cfg.kf + ' ' + dur + 's cubic-bezier(.2,.8,.2,1) both';
+      el.style.animationDelay = d + 's';
+    });
+    // safety: guarantee the mark ends visible even if the animation engine was throttled
+    clearTimeout(this._fb);
+    this._fb = setTimeout(() => {
+      tiles.forEach(el => { el.style.animation = 'none'; el.style.opacity = '1'; el.style.transform = 'none'; });
+    }, maxEnd * 1000 + 500);
+  }
+
+  select = (k) => () => { this.anim = k; this.markActive(k); this.play(); };
+  replay = () => this.play();
+  setSpeed = (e) => {
+    this.speed = +e.target.value;
+    const lab = document.querySelector('[data-speedval]');
+    if(lab) lab.textContent = this.speed.toFixed(1) + 'x';
+    this.play();
+  };
+
+  renderVals(){
+    return {
+      selAssemble: this.select('assemble'),
+      selCascade: this.select('cascade'),
+      selWave: this.select('wave'),
+      selPop: this.select('pop'),
+      replay: this.replay,
+      setSpeed: this.setSpeed,
+    };
+  }
+}
+</script>
+</body>
+</html>

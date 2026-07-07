@@ -1,0 +1,67 @@
+name: Bicol IT
+url: https://bicolit.org
+established: 2013
+description: Transforming Bicol into a globally competitive Information Technology hub through education and technopreneurship.
+keywords:
+  - bicolit
+  - Bicol IT
+  - Bicol Information Technology
+  - Bicolit
+heroWords:
+  - Today.
+  - Locally.
+  - Together.
+  - Boldly.
+aboutHeading: The biggest and most active IT education advocacy in the Bicol region.
+aboutParagraphs:
+  - From its inception in 2013, our community has grown from a few enthusiasts to thousands of students, professionals, founders, and academics.
+  - We've conducted dozens of seminars, meetups, and workshops on various technologies that have attracted thousands of participants from all over Bicol.
+  - Our events always feature experts from the industry. We’re grateful for their continuous support in sharing their knowledge with our members.
+  - BICOLIT.ORG INC. is a duly registered nonprofit corporation under SEC, BIR, LGU, and other government institutions.
+tagPills:
+  - // AI
+  - // Cloud
+  - // Web
+  - // Data
+  - // Startups
+  - // Community
+  - // UI/UX
+  - // Cybersecurity
+terminalLines:
+  - bicol-it@legazpi:~$ ./launch --community
+  - '[ok] members online ........... 5,000+'
+  - '[ok] chapters: Albay · CamSur · Sorsogon'
+  - '[ok] BITCON 2024 ...... registration open'
+  - '> building Bicol’s tech future'
+nav:
+  - label: About
+    href: '#about'
+  - label: Events
+    href: '#events'
+  - label: Membership
+    href: '#membership'
+  - label: Team
+    href: '#team'
+  - label: Partners
+    href: '#partners'
+membershipUrl: https://docs.google.com/forms/d/e/1FAIpQLSdA8CorhD6jXJ-EwaAg4gHlv_TVqfwY67VExd9QCYcVENlwvw/viewform
+contacts:
+  - key: HQ
+    value: 2F RJV Commercial Building, Rizal St., Cor. Gov. Reynolds St., Old Albay District, Legazpi City, 4500, Albay, Philippines
+  - key: Mobile
+    value: +63 9999123456
+  - key: Email
+    value: hello@bicolit.org
+social:
+  - name: Facebook
+    url: https://www.facebook.com/bicolit.org
+    logo: /images/social/facebook.svg
+  - name: Instagram
+    url: https://instagram.com/bicolit
+    logo: /images/social/instagram.svg
+  - name: X
+    url: https://x.com/bicolit
+    logo: /images/social/x.svg
+facebookGroup: https://www.facebook.com/groups/194616090699146
+footerLegal: BICOLIT.ORG INC. — registered nonprofit under SEC, BIR & LGU.
+copyrightYear: 2024
