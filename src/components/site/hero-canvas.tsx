@@ -3,11 +3,12 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
-export type HeroGameMode = "ambient" | "playing" | "dead";
+export type HeroGameMode = "ambient" | "starting" | "playing" | "dead";
 
-/* Imperative handle for on-screen (mobile) controls — lets the d-pad steer the
-   snake without synthesising keyboard events. */
-export type HeroSnakeControl = { setDir: (d: number[]) => void };
+/* Imperative handle for on-screen (mobile) controls + the countdown gate.
+   `setDir` lets the d-pad steer without synthesising keyboard events; `start`
+   is called by React when the "GAME START" countdown finishes to begin play. */
+export type HeroSnakeControl = { setDir: (d: number[]) => void; start: () => void };
 
 /* The living hero background: a pulsing rounded-square grid with a cursor
    glow and a small "box-eating" snake that glides over the tiles. Faithful
@@ -238,6 +239,14 @@ export function HeroCanvas({
       });
     };
 
+    // Enter the pre-game countdown: freeze the board and let React run the
+    // "GAME START" 3-2-1 overlay, which calls startGame() when it hits zero.
+    const beginCountdown = () => {
+      if (!cols || !rows) return;
+      mode = "starting";
+      cbRef.current.onModeChange?.("starting");
+    };
+
     const startGame = () => {
       if (!cols || !rows) return;
       mode = "playing";
@@ -397,12 +406,12 @@ export function HeroCanvas({
       const x = e.clientX - rect.left,
         y = e.clientY - rect.top;
       if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
-      if (mode === "playing") return;
+      if (mode === "playing" || mode === "starting") return;
       // Ignore clicks on real controls (links, buttons, the d-pad) so they keep
       // working; any other click on the hero background starts / retries.
       const target = e.target as HTMLElement | null;
       if (target?.closest("a,button,input,textarea,select,[role='button']")) return;
-      startGame();
+      beginCountdown();
     };
     window.addEventListener("click", onClick);
 
@@ -421,7 +430,7 @@ export function HeroCanvas({
       if (mode !== "playing") {
         if (mode === "dead" && (e.code === "Space" || e.code === "Enter")) {
           e.preventDefault();
-          startGame();
+          beginCountdown();
         }
         return;
       }
@@ -441,6 +450,7 @@ export function HeroCanvas({
     if (controlRef) {
       controlRef.current = {
         setDir: (d: number[]) => applySteer(d),
+        start: () => startGame(),
       };
     }
 

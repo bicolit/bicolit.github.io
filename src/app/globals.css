@@ -277,8 +277,48 @@
 .card-lift:hover {
   transform: translateY(-6px);
 }
+/* People grid: centered flex-wrap so an uneven last row (e.g. 5 advocates on a
+   6-up desktop row) stays centered instead of left-aligned with a hole.
+   Column count steps up with width; the calc() trims each basis by its share
+   of the gap. Mobile is 2-up (was 1-up min-200px, which blew the cards up). */
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+.team-grid .team-card {
+  flex: 0 1 calc(50% - 9px); /* mobile: 2 per row */
+  max-width: 240px;
+}
+@media (min-width: 640px) {
+  .team-grid .team-card {
+    flex-basis: calc(33.333% - 12px); /* tablet: 3 per row */
+  }
+}
+@media (min-width: 1024px) {
+  .team-grid .team-card {
+    flex-basis: calc(16.666% - 15px); /* desktop: up to 6 per row → each section on one line */
+  }
+}
+
 .team-card:hover {
   border-color: var(--line2) !important;
+}
+/* Portraits rest in grayscale (reads as one cohesive set regardless of theme),
+   then bloom to full color + a slow zoom when their card is hovered.
+   Single-function filter on purpose: a multi-function `filter` gets minified
+   into space-less `grayscale()contrast()…`, which is invalid and dropped. */
+.team-photo {
+  filter: grayscale(100%);
+  transition:
+    filter 0.45s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.team-card:hover .team-photo,
+.team-card:focus-within .team-photo {
+  filter: grayscale(0%);
+  transform: scale(1.06);
 }
 .social-dot {
   transition: background 0.2s ease;

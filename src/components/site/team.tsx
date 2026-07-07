@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 
 import { LiveDots, Eyebrow } from "./decor";
@@ -15,12 +12,15 @@ export type TeamMember = {
   photo: string | null;
   linkedin: string | null;
   school: string | null;
+  order: number;
 };
 
-const TABS = [
-  { key: "advocate", label: "Advocates" },
-  { key: "student", label: "Student Council" },
-  { key: "founder", label: "Founders" },
+// Sections stacked top-to-bottom (no tabs). Student council is intentionally
+// omitted for now — re-add { key: "student", ... } when the roster is ready.
+const SECTIONS = [
+  { key: "founder", label: "Founders", blurb: "The people who started it all.", showPosition: true },
+  // Advocates are shown by name only — positions hidden for now.
+  { key: "advocate", label: "Advocates", blurb: "Leaders steering the community forward.", showPosition: false },
 ] as const;
 
 const AVATAR_GRADIENTS = [
@@ -35,10 +35,6 @@ function initials(name: string) {
 }
 
 export function Team({ members }: { members: TeamMember[] }) {
-  const [active, setActive] = useState<string>("advocate");
-  const counts = Object.fromEntries(TABS.map((t) => [t.key, members.filter((m) => m.category === t.key).length]));
-  const people = members.filter((m) => m.category === active);
-
   return (
     <section id="team" style={{ position: "relative", overflow: "hidden", background: "var(--surface2)", color: "var(--fg)" }}>
       <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
@@ -61,49 +57,56 @@ export function Team({ members }: { members: TeamMember[] }) {
           <div style={{ marginBottom: 18 }}>
             <Eyebrow>/ The people</Eyebrow>
           </div>
-          <h2 style={{ margin: "0 0 30px", fontWeight: 800, letterSpacing: "-0.02em", fontSize: "clamp(26px,3.3vw,42px)" }}>
-            Led by advocates &amp; students.
+          <h2 style={{ margin: 0, fontWeight: 800, letterSpacing: "-0.02em", fontSize: "clamp(26px,3.3vw,42px)" }}>
+            Built by founders &amp; advocates.
           </h2>
         </Reveal>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 8, flexWrap: "wrap", marginBottom: 44 }}>
-          {TABS.map((tab) => {
-            const on = active === tab.key;
-            return (
-              <button
-                key={tab.key}
-                onClick={() => setActive(tab.key)}
-                style={{
-                  padding: "11px 20px",
-                  borderRadius: 999,
-                  cursor: "pointer",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 13,
-                  fontWeight: 700,
-                  letterSpacing: ".02em",
-                  border: `1px solid ${on ? "transparent" : "var(--line2)"}`,
-                  background: on ? "linear-gradient(120deg,var(--purple),var(--purple2))" : "transparent",
-                  color: on ? "#fff" : "var(--fg2)",
-                  transition: "all .2s",
-                }}
-              >
-                {tab.label} &nbsp;·&nbsp; {counts[tab.key] ?? 0}
-              </button>
-            );
-          })}
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))", gap: 18 }}>
-          {people.map((person, i) => (
-            <PersonCard key={person.slug} person={person} index={i} />
-          ))}
-        </div>
+        {SECTIONS.map((sec) => {
+          const people = members.filter((m) => m.category === sec.key);
+          if (!people.length) return null;
+          return (
+            <TeamGroup key={sec.key} label={sec.label} blurb={sec.blurb} people={people} showPosition={sec.showPosition} />
+          );
+        })}
       </div>
     </section>
   );
 }
 
-function PersonCard({ person, index }: { person: TeamMember; index: number }) {
+function TeamGroup({
+  label,
+  blurb,
+  people,
+  showPosition,
+}: {
+  label: string;
+  blurb: string;
+  people: TeamMember[];
+  showPosition: boolean;
+}) {
+  return (
+    <div style={{ marginTop: 64 }}>
+      <Reveal style={{ marginBottom: 28 }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+          <h3 style={{ margin: 0, fontWeight: 800, fontSize: "clamp(20px,2.2vw,26px)", letterSpacing: "-0.01em" }}>{label}</h3>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--cyan)" }}>
+            {String(people.length).padStart(2, "0")}
+          </span>
+        </div>
+        {blurb && <p style={{ margin: "8px 0 0", fontSize: 14.5, color: "var(--fg2)" }}>{blurb}</p>}
+      </Reveal>
+
+      <Reveal className="team-grid">
+        {people.map((person, i) => (
+          <PersonCard key={person.slug} person={person} index={i} showPosition={showPosition} />
+        ))}
+      </Reveal>
+    </div>
+  );
+}
+
+function PersonCard({ person, index, showPosition }: { person: TeamMember; index: number; showPosition: boolean }) {
   return (
     <div
       className="team-card"
@@ -131,6 +134,7 @@ function PersonCard({ person, index }: { person: TeamMember; index: number }) {
       >
         {person.photo ? (
           <Image
+            className="team-photo"
             src={person.photo}
             alt={person.name}
             fill
@@ -152,7 +156,9 @@ function PersonCard({ person, index }: { person: TeamMember; index: number }) {
         />
       </div>
       <div style={{ fontWeight: 700, fontSize: 16, lineHeight: 1.2 }}>{person.name}</div>
-      <div style={{ fontSize: 13, color: "var(--fg2)", marginTop: 5 }}>{person.position}</div>
+      {showPosition && person.position && (
+        <div style={{ fontSize: 13, color: "var(--fg2)", marginTop: 5 }}>{person.position}</div>
+      )}
       {person.school && (
         <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg3)", marginTop: 8, letterSpacing: ".02em" }}>
           {person.school}

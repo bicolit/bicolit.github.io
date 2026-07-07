@@ -2,6 +2,10 @@ import { LiveDots, Eyebrow } from "./decor";
 import { CheckIcon } from "./icons";
 import { Reveal } from "./reveal";
 
+// Membership pricing is not live yet — hide prices/cadence and show a
+// "Coming soon" state on the cards. Flip to false to restore live pricing.
+const COMING_SOON = true;
+
 type Tier = {
   name: string;
   price: string;
@@ -67,6 +71,37 @@ export function Membership({
           >
             Choose how you grow with the community.
           </h2>
+          {COMING_SOON && (
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 9,
+                marginTop: 22,
+                padding: "8px 16px",
+                borderRadius: 999,
+                border: "1px solid var(--line2)",
+                background: "var(--chip)",
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                letterSpacing: ".14em",
+                textTransform: "uppercase",
+                color: "var(--fg2)",
+              }}
+            >
+              <span
+                className="animate-livedot"
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "var(--cyan)",
+                  boxShadow: "0 0 10px var(--cyan)",
+                }}
+              />
+              Coming soon
+            </span>
+          )}
         </Reveal>
 
         <Reveal
@@ -163,13 +198,21 @@ function TierCard({ tier, index, membershipUrl }: { tier: Tier; index: number; m
       <div style={{ fontFamily: "var(--font-mono)", fontSize: 13, letterSpacing: ".12em", textTransform: "uppercase", opacity: 0.8 }}>
         {tier.name}
       </div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 10, margin: "16px 0 4px" }}>
-        <span style={{ fontWeight: 800, fontSize: 44, lineHeight: 1 }}>{tier.price}</span>
-        {tier.oldPrice ? (
-          <span style={{ textDecoration: "line-through", opacity: 0.5, fontSize: 18 }}>{tier.oldPrice}</span>
-        ) : null}
-      </div>
-      <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 24 }}>{tier.cadence}</div>
+      {COMING_SOON ? (
+        <div style={{ display: "flex", alignItems: "baseline", gap: 10, margin: "16px 0 24px" }}>
+          <span style={{ fontWeight: 800, fontSize: 28, lineHeight: 1, letterSpacing: "-0.01em" }}>Coming soon</span>
+        </div>
+      ) : (
+        <>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 10, margin: "16px 0 4px" }}>
+            <span style={{ fontWeight: 800, fontSize: 44, lineHeight: 1 }}>{tier.price}</span>
+            {tier.oldPrice ? (
+              <span style={{ textDecoration: "line-through", opacity: 0.5, fontSize: 18 }}>{tier.oldPrice}</span>
+            ) : null}
+          </div>
+          <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 24 }}>{tier.cadence}</div>
+        </>
+      )}
       <ul style={{ listStyle: "none", margin: "0 0 28px", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
         {tier.features.map((f) => (
           <li key={f} style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: 14.5, lineHeight: 1.4 }}>
@@ -178,27 +221,55 @@ function TierCard({ tier, index, membershipUrl }: { tier: Tier; index: number; m
           </li>
         ))}
       </ul>
-      <a
-        href={membershipUrl}
-        target="_blank"
-        rel="noopener"
-        style={{
-          display: "block",
-          textAlign: "center",
-          padding: 13,
-          borderRadius: 999,
-          textDecoration: "none",
-          fontFamily: "var(--font-mono)",
-          fontWeight: 700,
-          fontSize: 13,
-          letterSpacing: ".02em",
-          color: s.btnFg,
-          background: s.btnBg,
-          border: `1px solid ${s.btnBorder}`,
-        }}
-      >
-        {tier.cta}
-      </a>
+      {COMING_SOON ? (
+        // Pricing not live — render the CTA as a disabled, non-linking button
+        // so it no longer opens the membership sheet.
+        <button
+          type="button"
+          disabled
+          aria-disabled="true"
+          style={{
+            display: "block",
+            width: "100%",
+            textAlign: "center",
+            padding: 13,
+            borderRadius: 999,
+            fontFamily: "var(--font-mono)",
+            fontWeight: 700,
+            fontSize: 13,
+            letterSpacing: ".02em",
+            color: s.btnFg,
+            background: s.btnBg,
+            border: `1px solid ${s.btnBorder}`,
+            opacity: 0.5,
+            cursor: "not-allowed",
+          }}
+        >
+          {tier.cta}
+        </button>
+      ) : (
+        <a
+          href={membershipUrl}
+          target="_blank"
+          rel="noopener"
+          style={{
+            display: "block",
+            textAlign: "center",
+            padding: 13,
+            borderRadius: 999,
+            textDecoration: "none",
+            fontFamily: "var(--font-mono)",
+            fontWeight: 700,
+            fontSize: 13,
+            letterSpacing: ".02em",
+            color: s.btnFg,
+            background: s.btnBg,
+            border: `1px solid ${s.btnBorder}`,
+          }}
+        >
+          {tier.cta}
+        </a>
+      )}
     </div>
   );
 }

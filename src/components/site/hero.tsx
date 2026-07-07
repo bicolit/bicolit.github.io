@@ -72,6 +72,8 @@ export function Hero({
   // text fade + pill consumption that live in this component's DOM.
   const [mode, setMode] = useState<HeroGameMode>("ambient");
   const [score, setScore] = useState(0);
+  // "GAME START" countdown value shown before play begins (3 → 2 → 1).
+  const [count, setCount] = useState(3);
   // Lazy init reads the stored best on the client only. It's safe from hydration
   // mismatch because the best is never rendered until the game runs (the overlay
   // is hidden while ambient), which is always after the first paint.
@@ -88,6 +90,24 @@ export function Hero({
   useEffect(() => {
     highRef.current = highScore;
   }, [highScore]);
+
+  // Drive the pre-game countdown. When the canvas flips to "starting" we show
+  // 3 → 2 → 1 (one second each), then tell the engine to begin play. Any change
+  // out of "starting" (or unmount) tears the timer down.
+  useEffect(() => {
+    if (mode !== "starting") return;
+    let n = 3;
+    const id = window.setInterval(() => {
+      n -= 1;
+      if (n <= 0) {
+        window.clearInterval(id);
+        controlRef.current?.start();
+      } else {
+        setCount(n);
+      }
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, [mode]);
 
   const handleScore = useCallback((s: number) => {
     scoreRef.current = s;
@@ -114,6 +134,7 @@ export function Hero({
       setNewBest(false);
       setEatenPills(new Set());
       setEatenLogoTiles(new Set());
+      if (m === "starting") setCount(3);
     }
   }, []);
   const handleEatLogo = useCallback((i: number) => {
@@ -392,6 +413,53 @@ export function Hero({
             }}
           >
             ▸ click anywhere to play
+          </div>
+        )}
+        {mode === "starting" && (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "var(--font-mono)",
+                padding: "26px 34px",
+                borderRadius: 16,
+                border: "1px solid var(--line2)",
+                background: "color-mix(in srgb, var(--bg) 70%, transparent)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                boxShadow: "0 34px 74px -32px rgba(0,0,0,.72)",
+                maxWidth: 300,
+              }}
+            >
+              <div style={{ fontSize: 22, fontWeight: 800, color: "var(--fg)", letterSpacing: ".02em" }}>
+                GAME START
+              </div>
+              <div
+                key={count}
+                style={{
+                  fontSize: 48,
+                  fontWeight: 800,
+                  lineHeight: 1,
+                  margin: "10px 0 8px",
+                  color: "var(--cyan)",
+                  animation: "wordIn .4s cubic-bezier(.2,.7,.2,1) both",
+                }}
+              >
+                {count}
+              </div>
+              <div style={{ fontSize: 12, lineHeight: 1.55, color: "var(--fg3)" }}>
+                Steer with arrows / WASD. Eat the food, keyword pills &amp; logo tiles —
+                avoid the walls and your own tail. Esc to exit.
+              </div>
+            </div>
           </div>
         )}
         {mode === "playing" && (
