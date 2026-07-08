@@ -40,18 +40,21 @@ const PILLS: { anim: string; cls: string }[] = [
 
 const pillBase: CSSProperties = {
   position: "absolute",
-  padding: "6px 13px",
   borderRadius: 999,
   border: "1px solid var(--line2)",
   background: "color-mix(in srgb, var(--bg) 42%, transparent)",
   backdropFilter: "blur(5px)",
   WebkitBackdropFilter: "blur(5px)",
   fontFamily: "var(--font-mono)",
-  fontSize: 12,
   letterSpacing: ".05em",
   color: "var(--fg2)",
   boxShadow: "0 10px 26px -16px rgba(0,0,0,.7)",
 };
+
+// Font + padding via classes (not pillBase inline) so mobile shrinks; inline
+// style would beat the sm: breakpoint. Phone smaller, sm+ = original scale.
+const pillSizeCls =
+  "text-[10px] px-[9px] py-[4px] sm:text-[12px] sm:px-[13px] sm:py-[6px]";
 
 export function Hero({
   heroWords,
@@ -212,7 +215,7 @@ export function Hero({
             <span
               key={label}
               data-hero-pill={i}
-              className={PILLS[i].cls}
+              className={`${PILLS[i].cls} ${pillSizeCls}`}
               style={{
                 ...pillBase,
                 // Freeze drift while playing so the snapshotted grid cell stays
@@ -284,7 +287,7 @@ export function Hero({
               individually-edible target. */}
           <div
             data-hero-logo
-            className="mx-auto mt-2 mb-9 w-[min(300px,62vw)] lg:mx-0 lg:my-0 lg:ml-auto lg:w-[min(540px,42vw)] lg:-translate-x-[20%] lg:-translate-y-[2%]"
+            className="mx-auto mt-2 mb-9 w-[min(300px,62vw)] sm:mt-10 sm:mb-4 lg:mx-0 lg:my-0 lg:ml-auto lg:w-[min(540px,42vw)] lg:-translate-x-[20%] lg:-translate-y-[2%]"
           >
             <AnimatedLogomark playing={playing} eatenTiles={eatenLogoTiles} />
           </div>
